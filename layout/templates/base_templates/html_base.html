@@ -1,0 +1,123 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+
+        <!-- meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_tags %} {% endblock %}
+
+        <!-- title -->
+        <title>{% block title %} {% endblock %}</title>
+
+
+        <!-- css -->
+
+        <!-- tailwind stylesheet -->
+        <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
+
+        {% block css %} {% endblock %}
+
+        <!-- js -->
+
+        <!-- minified jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script src="{% static 'layout/js/components.js' %}" type="text/javascript"></script>
+
+        {% block head_js %}{% endblock %}
+    </head>
+
+    <body>
+
+        <!-- site header -->
+        <header>
+            <!-- This example requires Tailwind CSS v2.0+ -->
+                <nav class="bg-gray-800">
+                    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                        <div class="relative flex items-center justify-between h-16">
+
+                            <!-- mobile menu button -->
+                            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                                <!-- Mobile menu button-->
+                                <button id="mobile_menu_button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                                <span class="sr-only">Open main menu</span>
+                                <!--
+                                    Icon when menu is closed.
+
+                                    Heroicon name: outline/menu
+
+                                    Menu open: "hidden", Menu closed: "block"
+                                -->
+                                <svg id="mobile_menu_open" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                                <!--
+                                    Icon when menu is open.
+
+                                    Heroicon name: outline/x
+
+                                    Menu open: "block", Menu closed: "hidden"
+                                -->
+                                <svg id="mobile_menu_close" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                </button>
+                            </div>
+
+                            <!-- navigation buttons -->
+                            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+
+                                <div class="hidden sm:block sm:ml-6">
+                                    <div class="flex space-x-4">
+                                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                        <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+
+                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
+
+                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+
+                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Mobile menu, show/hide based on menu state. -->
+                    <div class="sm:hidden hidden" id="mobile-menu">
+                        <div class="px-2 pt-2 pb-3 space-y-1">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
+
+                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+
+                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+
+                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+                        </div>
+                    </div>
+                </nav>
+        </header>
+
+        <!-- site content -->
+        <main>
+
+            {% block main %}
+            {% endblock %}
+
+        </main>
+
+        <!-- Site footer -->
+        <footer class="site-footer mt-auto">
+
+        </footer>
+
+        <!-- js -->
+
+        {% block body_js %} {% endblock %}
+
+    </body>
+</html>

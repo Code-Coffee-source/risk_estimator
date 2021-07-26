@@ -1,0 +1,33 @@
+{% extends 'base_templates/html_base.html' %}
+
+<!-- meta_tags -->
+{% block meta_tags %} {% endblock %}
+
+<!-- title -->
+{% block title %} Results {% endblock %}
+
+<!-- css -->
+{% block css %} {% endblock %}
+
+<!-- head_js -->
+{% block head_js %}{% endblock %}
+
+<!-- main content -->
+{% block main %}
+
+    <section class="container mx-auto p-8">
+
+        <div class="min-w-full bg-gray-50 rounded-3xl shadow-md py-12 flex flex-col items-center">
+
+            <h1 class="text-blue-600 text-3xl" > The calculated area is {{ result }} </h1>
+
+            <a href="{% url 'formula_demo' %}" class="cursor-pointer bg-white border border-blue-600 p-2 rounded-lg font-bold text-blue-600 m-4
+                                                                hover:bg-blue-600 hover:text-white transition-all"> &larr; Go Back </a>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+<!-- body_js -->
+{% block body_js %} {% endblock %}
