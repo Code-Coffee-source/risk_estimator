@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'layout.apps.LayoutConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
-    'formula_demo.apps.FormulaDemoConfig',
+    'estimate.apps.EstimateConfig',
 
 ]
 
@@ -126,3 +126,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

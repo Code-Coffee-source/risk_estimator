@@ -1,0 +1,194 @@
+{% load static %}
+{% load filters %}
+
+<html lang="en">
+    <head>
+
+        <!-- meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_tags %} {% endblock %}
+
+        <!-- title -->
+        <title>{% block title %} {% endblock %}</title>
+
+
+        <!-- css -->
+
+        <!-- tailwind stylesheet -->
+        <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
+        <link rel="stylesheet" href="{% static 'layout/css/html_base_custom_css.css' %}">
+
+        <link rel="stylesheet" href="{% static 'estimate/css/TPM.css' %}">
+
+
+        <!-- font awseome icons -->
+        <link   rel="stylesheet"
+                href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+                integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+                crossorigin="anonymous">
+
+        {% block css %} {% endblock %}
+
+        <!-- js -->
+
+        <!-- minified jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script src="{% static 'estimate/js/timeAndPeople.js' %}" type="text/javascript"></script>
+
+
+        {% block head_js %}{% endblock %}
+    </head>
+
+    <body>
+
+        <!-- site header -->
+        <header class="px-8 sm:px-20 lg:px-96">
+            <!-- This example requires Tailwind CSS v2.0+ -->
+                <nav class="bg-white">
+                    <div class="max-w-7xl mx-auto py-5">
+
+
+                        <div class="inset-x-0 top-0 flex items-center justify-between">
+
+                            <!-- pc menu -->
+                            <div class="flex items-center space-x-5">
+                                <a href="{% url 'activity' %}"> <i class="fas fa-arrow-left fa-2x"></i> </a>
+                                <span class="text-black tracking-widest text-xl md:text-2xl font-bold align-middle" > Estimate  </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </nav>
+        </header>
+
+        <!-- site content -->
+        <main class="px-8 sm:px-20 lg:px-96 space-y-6">
+
+            <section class="space-y-4" >
+                <div class="flex">
+
+                <div class="space-y-4">
+                    <h2 class="font-semibold text-2xl md:text-4xl xl:text-5xl tracking-wider"> Time and People </h2>
+                    <h3 class="text-base md:text-lg xl:text-xl tracking-wide"> Next: Masks </h3>
+                </div>
+
+                <div class="flex-grow">
+                    <div class="w-16 h-16 mx-auto">
+                        <img class="" src={% static '/estimate/resources/image/568205.png'%}>
+                    </div>
+                </div>
+
+                </div>
+
+                <p class="text-base md:text-lg xl:text-xl"> Descriptions and instructions on what to do and why is it important to do.</p>
+
+            </section>
+
+            <section class="mt-5">
+
+
+                    <div class="space-y-5">
+
+                        <div class="space-y-2">
+
+                            <div class="flex flex-col text-center">
+
+                                <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How long will it take? </h1>
+
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-2">
+
+                                <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1">
+
+                                    <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/Duration.svg' %}" type="image/svg+xml"></object>
+
+                                    <input  id="time_input"
+                                            class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
+                                            type="text"
+                                            placeholder="Input here">
+
+                                </div>
+
+                                <div class=" py-2 text-charlotte-blue col-span-1 ">
+
+                                    <div class="grid grid-cols-2 bg-gray-600 rounded-full p-1">
+
+                                        <button id="hrsBtn" value="hours" type="button" class="active bg-dirty-white rounded-full py-2 text-charlotte-blue">
+                                            Hours
+                                        </button>
+
+                                        <button id="minBtn" value="minutes" type="button" class="inactive bg-transparent rounded-full py-2 text-gray-400">
+                                            Minutes
+                                        </button>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="space-y-2">
+
+                            <div class="flex flex-col text-center">
+
+                                <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How many people are involved? </h1>
+
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-2">
+
+                                <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1">
+
+                                    <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/People.svg' %}" type="image/svg+xml"></object>
+
+                                    <input  id="people_input"
+                                            class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
+                                            type="text"
+                                            placeholder="Input here">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <form id="timeAndPeopleForm" method="POST" action="">
+                    {% csrf_token%}
+
+                    {{ form.time.as_hidden }}
+                    {{ form.t_unit.as_hidden}}
+                    {{ form.people.as_hidden }}
+
+                </form>
+
+                <button id="submitBtn" href="{% url 'masks' %}" type="button" class="tracking-widest text-center w-full rounded-full shadow-sm px-4 py-3 md:py-3 bg-charlotte-green text-sm xl:text-xl font-black text-white">
+                    NEXT
+                </button>
+
+            </section>
+
+        </main>
+
+        <!-- js -->
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+        <!-- Required popper.js -->
+        <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+
+        {% block body_js %} {% endblock %}
+
+    </body>
+</html>

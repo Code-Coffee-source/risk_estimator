@@ -1,0 +1,13 @@
+.mobile_menu {
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.nav_collapse {
+  max-height: 0;
+}
+
+.nav_show {
+  max-height: 20rem;
+}
+/*# sourceMappingURL=html_base_custom_css.css.map */

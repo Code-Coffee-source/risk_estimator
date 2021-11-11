@@ -16,6 +16,11 @@
 
         <!-- tailwind stylesheet -->
         <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
+        <link rel="stylesheet" href="{% static 'layout/css/html_base_custom_css.css' %}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
         {% block css %} {% endblock %}
 
@@ -32,90 +37,44 @@
     <body>
 
         <!-- site header -->
-        <header>
+        <header class="px-10 sm:px-20 lg:px-32">
             <!-- This example requires Tailwind CSS v2.0+ -->
-                <nav class="bg-gray-800">
-                    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-                        <div class="relative flex items-center justify-between h-16">
+                <nav class="absolute bg-white">
+                    <div class="max-w-7xl mx-auto py-5">
 
-                            <!-- mobile menu button -->
-                            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                                <!-- Mobile menu button-->
-                                <button id="mobile_menu_button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                                <span class="sr-only">Open main menu</span>
-                                <!--
-                                    Icon when menu is closed.
 
-                                    Heroicon name: outline/menu
+                        <div class="inset-x-0 top-0 flex items-center justify-between">
 
-                                    Menu open: "hidden", Menu closed: "block"
-                                -->
-                                <svg id="mobile_menu_open" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                                <!--
-                                    Icon when menu is open.
-
-                                    Heroicon name: outline/x
-
-                                    Menu open: "block", Menu closed: "hidden"
-                                -->
-                                <svg id="mobile_menu_close" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                                </button>
+                            <!-- pc menu -->
+                            <div class=" hidden sm:block">
+                                <span class="text-black  tracking-tighter text-3xl font-bold" > aspire </span>
                             </div>
 
-                            <!-- navigation buttons -->
-                            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
 
-                                <div class="hidden sm:block sm:ml-6">
-                                    <div class="flex space-x-4">
-                                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                        <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
-
-                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
-
-                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-
-                                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
-                                    </div>
+                            <!-- mobile menu -->
+                            <div class="inset-y-0 left-0 right-0 flex py-3 flex-col sm:hidden">
+                                <div class=" flex justify-between items-center ">
+                                    <span class="text-black tracking-tighter text-3xl font-bold" > aspire </span>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
-                    <!-- Mobile menu, show/hide based on menu state. -->
-                    <div class="sm:hidden hidden" id="mobile-menu">
-                        <div class="px-2 pt-2 pb-3 space-y-1">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
-
-                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-
-                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-
-                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
-                        </div>
-                    </div>
                 </nav>
         </header>
 
         <!-- site content -->
-        <main>
+        <main class="font-lato text-charlotte-blue">
 
             {% block main %}
             {% endblock %}
 
         </main>
 
-        <!-- Site footer -->
-        <footer class="site-footer mt-auto">
-
-        </footer>
-
         <!-- js -->
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         {% block body_js %} {% endblock %}
 
