@@ -1,0 +1,188 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+
+        <!-- meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_tags %} {% endblock %}
+
+        <!-- title -->
+        <title>{% block title %} {% endblock %}</title>
+
+
+        <!-- css -->
+
+        <!-- tailwind stylesheet -->
+        <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
+        <link rel="stylesheet" href="{% static 'layout/css/html_base_custom_css.css' %}">
+
+        <!-- font awseome icons -->
+        <link   rel="stylesheet"
+                href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+                integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+                crossorigin="anonymous">
+
+        {% block css %} {% endblock %}
+
+        <!-- js -->
+
+        <!-- minified jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script src="{% static 'estimate/js/estimation_base.js' %}" type="text/javascript"></script>
+
+        {% block head_js %}{% endblock %}
+    </head>
+
+    <body>
+
+        <!-- site header -->
+        <header class="px-8 sm:px-20 lg:px-96 font-sans">
+            <!-- This example requires Tailwind CSS v2.0+ -->
+                <nav class="bg-white">
+                    <div class="max-w-7xl py-5">
+
+                        <div class="inset-x-0 top-0 flex items-center justify-between">
+
+                            <div class="flex space-x-1 items-center">
+                                <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
+                                <div class="flex items-center">
+                                    <a class="tracking-tighter text-3xl font-black text-charlotte-blue"> aspire </a>
+                                </div>
+                            </div>
+
+                            <button id="menu_btn" class="bg-dirty-white p-3 rounded-xl h-14 w-14">
+                                <object class="h-8 w-8" data="{% static 'estimate/resources/image/base/Menu (1).svg' %}" type="image/svg+xml"></object>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+                </nav>
+                <div id="mobile_menu" class='grid grid-cols-1 gap-2 divide-y divide-gray-300 bg-dirty-white m-3 text-center rounded-xl shadow-md h-0 overflow-hidden'>
+
+                    <div class="p-3">
+
+                        <span> SUMMARY </span>
+
+                        <ul class="font-medium space-y-1 text-left">
+                            <li>
+                                <span> Location: {{ location }}</span>
+                            </li>
+
+                            <li>
+                                <span> Activity: {{ activity }}</span>
+                            </li>
+
+                            <li>
+                                <span> Intensity: {{ intensity }} </span>
+                            </li>
+
+                            <li>
+                                <span> Room Size: {{ floor_area }} m (Floor Area) x {{ room_height }} m (Room Height)</span>
+                            </li>
+
+                            <li>
+                                <span> Ventilation: {{ ventilation }}</span>
+                            </li>
+
+                            <li>
+                                <span> Duration: {{ time }} {{t_unit}}</span>
+                            </li>
+
+                            <li>
+                                <span> Number of People: {{ people }} </span>
+                            </li>
+
+                            <li>
+                                <span> Mask Percentage: {{maskPercent}} </span>
+                            </li>
+
+                            <li>
+                                <span> Mask Type: {{maskType}} </span>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <a type="button" class="w-full py-3 hover:bg-red-100">
+                        <span class=""> HOMEPAGE </span>
+                    </a>
+
+                    <a type="button" class="w-full py-3 hover:bg-red-100">
+                        <span class=""> HOMEPAGE </span>
+                    </a>
+
+
+                </div>
+</header>
+
+        <!-- site content -->
+        <main class="px-8 sm:px-20 lg:px-96 space-y-6 font-sans text-charlotte-blue pb-5">
+
+            <section class="space-y-5" >
+
+                <div class="grid grid-cols-5 gap-2" >
+                    <div class="col-span-4">
+                        <h3 class="text-base md:text-lg xl:text-xl tracking-tight"> Estimation stage </h3>
+                        <h2 class="font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter"> {{ stage_title }} </h2>
+                    </div>
+
+                    <div class="flex-reverse text-right items-end" >
+                        <h3 class="text-base md:text-lg xl:text-xl tracking-tight font-black"> 1 of 5 </h3>
+                    </div>
+
+
+
+                    <div class="col-span-5 grid grid-cols-5 gap-1">
+                        <div class="bg-charlotte-gold h-1"> </div>
+                        <div class="bg-charlotte-gold h-1"> </div>
+                        <div class="bg-charlotte-gold h-1"> </div>
+                        <div class="bg-charlotte-gold h-1"> </div>
+                        <div class="bg-charlotte-gold h-1"> </div>
+                    </div>
+
+                </div>
+
+                <p class="text-base tracking-tight md:text-lg xl:text-xl"> {{ stage_desc }}</p>
+
+            </section>
+
+            {% block input %}
+
+            {% endblock %}
+
+            <div class="grid grid-cols-1 gap-3 md:flex md:flex-row-reverse">
+
+
+                <a id="submit_btn" type="button" class="text-xl text-white col-span-1 md:w-1/2 bg-charlotte-green rounded-full text-center py-4">
+                    Next
+                </a>
+
+                <a href={{ back_link }} class="text-xl text-charlotte-blue col-span-1 md:w-1/2 bg-dirty-white rounded-full text-center py-4">
+                    Back
+                </a>
+
+
+            </div>
+
+        </main>
+
+        <!-- js -->
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+
+        <!-- Required popper.js -->
+        <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+
+        {% block body_js %} {% endblock %}
+
+    </body>
+
+</html>

@@ -1,175 +1,97 @@
+{% extends 'base_template/estimation_base_template.html' %}
 {% load static %}
-{% load filters %}
 
-<html lang="en">
-    <head>
+{% block meta_tags %} {% endblock %}
 
-        <!-- meta -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block meta_tags %} {% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'estimate/css/sliderDesign.css' %}">
+{% endblock %}
 
-        <!-- title -->
-        <title>{% block title %} {% endblock %}</title>
+{% block title %} Masks {% endblock %}
 
-
-        <!-- css -->
-
-        <!-- tailwind stylesheet -->
-        <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
-        <link rel="stylesheet" href="{% static 'layout/css/html_base_custom_css.css' %}">
-
-        <link rel="stylesheet" href="{% static 'estimate/css/TPM.css' %}">
+{% block head_js %}
+    <script src="{% static 'estimate/js/masks.js' %}" type="text/javascript"></script>
+{% endblock %}
 
 
-        <!-- font awseome icons -->
-        <link   rel="stylesheet"
-                href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-                integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-                crossorigin="anonymous">
+{% block progreesBar %}
+    <img class="" src={% static '/estimate/resources/image/ProgressBar/4_of_5.png'%}>
+{% endblock %}
 
-        {% block css %} {% endblock %}
+{% block input %}
 
-        <!-- js -->
+    <section class="mt-5">
+        <form id="MasksForm" method="POST" action="">
+            {% csrf_token %}
 
-        <!-- minified jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <div class="space-y-5">
 
-        <script src="{% static 'estimate/js/masks.js' %}" type="text/javascript"></script>
+                <div class="space-y-2">
 
+                    <div class="flex flex-col text-center">
 
-        {% block head_js %}{% endblock %}
-    </head>
+                        <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> Estimate the percentage of people wearing masks: </h1>
 
-    <body>
+                    </div>
 
-        <!-- site header -->
-        <header class="px-8 sm:px-20 lg:px-96">
-            <!-- This example requires Tailwind CSS v2.0+ -->
-                <nav class="bg-white">
-                    <div class="max-w-7xl mx-auto py-5">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="range-slider-counter w-full col-span-3">
+                            <input type="range" min="1" max="100" value="50" class="slider h-2 w-full" id="maskSlider">
+                        </div>
 
+                    </div>
 
-                        <div class="inset-x-0 top-0 flex items-center justify-between">
+                    <div class="grid grid-cols-1 gap-2">
 
-                            <!-- pc menu -->
-                            <div class="flex items-center space-x-5">
-                                <a href="{% url 'timeAndPeople' %}"> <i class="fas fa-arrow-left fa-2x"></i> </a>
-                                <span class="text-black tracking-widest text-xl md:text-2xl font-bold align-middle" > Estimate  </span>
-                            </div>
-
+                        <div class="bg-dirty-white px-3 py-2 text-charlotte-blue text-center font-semibold rounded-full col-span-1">
+                            <span class="w-full" id="sliderValue"> 50% </span>
                         </div>
                     </div>
 
-
-
-                </nav>
-        </header>
-
-        <!-- site content -->
-        <main class="px-8 sm:px-20 lg:px-96 space-y-6">
-
-            <section class="space-y-4" >
-                <div class="flex">
-
-                <div class="space-y-4">
-                    <h2 class="font-semibold text-2xl md:text-4xl xl:text-5xl tracking-wider"> Masks </h2>
-                    <h3 class="text-base md:text-lg xl:text-xl tracking-wide"> Next: Results</h3>
                 </div>
 
-                <div class="flex-grow">
-                    <div class="w-16 h-16 mx-auto">
-                        <img class="" src={% static '/estimate/resources/image/568205.png'%}>
-                    </div>
-                </div>
+                <div class="flex flex-col text-center">
 
-                </div>
-
-                <p class="text-base md:text-lg xl:text-xl"> Descriptions and instructions on what to do and why is it important to do.</p>
-
-            </section>
-
-            <section class="mt-5">
-                <form id="masksForm" method="POST" action="">
-                    {% csrf_token %}
-
-                    <div class="space-y-5">
-
-                        <div class="space-y-2">
-
-                            <div class="flex flex-col text-center">
-
-                                <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How many of them wear masks? </h1>
-
-                            </div>
-
-                            <div class="grid grid-cols-3 gap-2">
-                                <div class="range-slider-counter w-full col-span-3">
-                                    <input type="range" min="1" max="100" value="50" class="slider h-2 w-full" id="maskSlider">
-                                </div>
-
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-2">
-
-                                <div class="bg-dirty-white px-3 py-2 text-charlotte-blue text-center font-semibold rounded-full col-span-1">
-                                    <span class="w-full" id="sliderValue"> 50% </span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="flex flex-col text-center">
-
-                            <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> What kind of masks? </h1>
-                            <span>  </span>
-
-                        </div>
-
-                        <div class="flex flex-col text-center my-3 justify-center space-y-3">
-
-                            <div class="grid grid-cols-3 gap-3 text-charlotte-blue">
-
-                                {% for mask in masks %}
-
-                                    <button name="mask"
-                                            value="{{ mask.Code }}"
-                                            type="button"
-                                            class="maskBtn bg-dirty-white p-1 h-28 w-28 xl:h-32 xl:w-32 rounded-6xl font-semibold place-self-center shadow-sm" >
-
-                                        <span>
-                                            <img class="h-16 w-16 m-auto" src="{% static 'estimate/resources/image/568205.png' %}" alt="My image">
-                                        </span>
-                                        <span class="leading-none"> {{ mask }} </span>
-                                    </button>
-
-
-                                {% endfor %}
-
-                            </div>
-                        </div>
+                    <div class="flex justify-center space-x-3"> 
+                        <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How large is the room? </h1>
+                        <span class=" flex justify-center items-center"> 
+                            <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
+                        </span>
                     </div>
 
-                    {{ form.maskPercent.as_hidden }}
-                    {{ form.maskType.as_hidden }}
-                </form>
+                </div>
 
-                <button id="submitBtn" type="button" class="tracking-widest text-center w-full rounded-full shadow-sm px-4 py-3 md:py-3 bg-charlotte-green text-sm xl:text-xl font-black text-white">
-                    NEXT
-                </button>
+                <div class="flex flex-col text-center my-3 justify-center space-y-3">
 
-            </section>
+                    <div class="grid grid-cols-3 gap-3 text-charlotte-blue">
 
-        </main>
+                        {% for mask in masks %}
 
-        <!-- js -->
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                        <button name="mask"
+                                value="{{ mask.Code }}"
+                                type="button"
+                                class="maskBtn bg-dirty-white p-1 h-24 w-24 rounded-4xl font-semibold place-self-center shadow-md
+                                        transform transition duration-300 ease-in-out text-charlotte-blue
+                                        focus:bg-beige active:bg-beige hover:bg-beige focus:scale-105 active:scale-105 hover:scale-105 
+                                        focus:shadow-xl active:shadow-xl hover:shadow-xl" >
 
-        <!-- Required popper.js -->
-        <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+                            <span>
+                                <img class="h-14 w-14 m-auto" src="{{ mask.image.url }}" alt="My image">
+                            </span>
+                            <span class="leading-none text-sm"> {{ mask }} </span>
+                        </button>
 
-        {% block body_js %} {% endblock %}
 
-    </body>
-</html>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+            {{ form.maskPercent.as_hidden }}
+            {{ form.maskType.as_hidden }}
+        </form>
+
+    </section>
+
+{% endblock %}

@@ -2,22 +2,28 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    fontFamily: {
-      'lato' : ['Lato', 'sans-serif']
-    },
 
     extend: {
+
       transitionProperty: {
         'height':'height'
       },
+
+      fontFamily: {
+        'sans' : ['Lato', 'sans-serif']
+      },
+
+
       colors: {
         'charlotte-green': '337970',
         'charlotte-gold': 'b1a36a',
         'charlotte-blue': '333d51',
         'orange': 'd6974',
         'dirty-white': 'e3e7f0',
-        'blue-stained-white': 'd6e4f5'
+        'blue-stained-white': 'd6e4f5',
+        'beige': 'd8c8ae'
       },
+
       borderRadius: {
         'xl': '0.75rem',
         '2xl': '1rem',
@@ -27,10 +33,28 @@ module.exports = {
         '7xl': '2.5rem',
         '8xl': '3rem',
       },
+
       letterSpacing : {
         widest2x: '.25rem',
         widest3x: '.50rem',
-      }
+      },
+
+      height : {
+        '98': '26rem',
+        '100': '28rem',
+        '158': '86rem',
+        '1/7': '14.28571%',
+        '1/8': '12.5%',
+      },
+
+      width : {
+        '98': '26rem',
+        '100': '28rem',
+        '158': '86rem',
+        '1/7': '14.28571%',
+        '1/8': '12.5%',
+      },
+
     },
   },
   variants: {

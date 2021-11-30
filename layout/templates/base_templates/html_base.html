@@ -37,31 +37,30 @@
     <body>
 
         <!-- site header -->
-        <header class="px-10 sm:px-20 lg:px-32">
+        <header class="absolute w-full">
             <!-- This example requires Tailwind CSS v2.0+ -->
-                <nav class="absolute bg-white">
-                    <div class="max-w-7xl mx-auto py-5">
+            <nav class="px-10 sm:px-20 lg:px-32">
+                <div class="flex justify-between py-4">
 
-
-                        <div class="inset-x-0 top-0 flex items-center justify-between">
-
-                            <!-- pc menu -->
-                            <div class=" hidden sm:block">
-                                <span class="text-black  tracking-tighter text-3xl font-bold" > aspire </span>
-                            </div>
-
-
-                            <!-- mobile menu -->
-                            <div class="inset-y-0 left-0 right-0 flex py-3 flex-col sm:hidden">
-                                <div class=" flex justify-between items-center ">
-                                    <span class="text-black tracking-tighter text-3xl font-bold" > aspire </span>
-                                </div>
-                            </div>
-
+                    <div class="flex space-x-3">
+                        <object class="h-12 w-12" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
+                        <div class="flex items-center">
+                            <a class="tracking-tighter text-3xl font-bold text-charlotte-blue"> aspire </a>
                         </div>
                     </div>
 
-                </nav>
+                    <div class="flex items-center space-x-14 hidden">
+
+                        <a class="tracking-tighter text-lg font-medium text-charlotte-blue"> Features </a>
+
+                        <a class="tracking-tighter text-lg font-medium text-charlotte-blue"> How It Works </a>
+
+                        <a class="tracking-tighter text-lg font-medium text-charlotte-blue"> Contacts </a>
+
+                    </div>
+
+                </div>
+            </nav>
         </header>
 
         <!-- site content -->

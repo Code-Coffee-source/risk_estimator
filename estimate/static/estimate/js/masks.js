@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
 
+    var form = $('#MasksForm')
+    var formSubmitBtn = $('#submit_btn')
+
     $(document).on('input', '#maskSlider', function() {
         $('#sliderValue').html( $(this).val() +"%" );
     });
@@ -10,10 +13,10 @@ $(document).ready(function() {
         $("#id_maskType").val(mask_val);
     });
 
-    $('#submitBtn').click(function() {
+    formSubmitBtn .click(function() {
         $('#id_maskPercent').val($('#maskSlider').val())
 
-        $('#masksForm').submit()
+        form.submit()
 
     });
 });

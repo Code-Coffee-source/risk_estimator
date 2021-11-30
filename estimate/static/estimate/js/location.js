@@ -1,26 +1,37 @@
 
 $(document).ready(function() {
 
-    // main menu toggle
-    $('#menu-button').click(function() {
-        if ($('#regions-menu').hasClass('closed')) {
-            $('#regions-menu').toggleClass('ease-in ease-out');
-            $('#regions-menu').toggleClass('duration-75 duration-100');
-            $('#regions-menu').toggleClass('opacity-0 opacity-100');
-            $('#regions-menu').toggleClass('scale-0 scale-100');
-            $('#regions-menu').toggleClass('h-0 h-auto');
-        };
+    var regionMenu = $('#regions-menu')
+    var regionMenuBtn = $('#regions_menu_btn')
+    var regionMenuItem = $('.regions_menu_item')
+    var form = $('#LocationForm')
+    var formSubmitBtn = $('#submit_btn')
 
-        console.log($('#id_location').val())
+    // main menu toggle
+    regionMenuBtn.click(function() {
+        if (regionMenu.hasClass('closed')) {
+            regionMenu.toggleClass('ease-in ease-out');
+            regionMenu.toggleClass('duration-75 duration-100');
+            regionMenu.toggleClass('opacity-0 opacity-100');
+            regionMenu.toggleClass('scale-0 scale-100');
+            regionMenu.toggleClass('h-0 h-36');
+        };
 
     });
 
-    $('.menuItem').click(function() {
+    regionMenuItem.click(function() {
 
+        var image = $("#region_image")
         var activity_val = $(this).val()
 
-        $('#menu-text').text($(this).text())
+        image.attr("src", "/static/estimate/resources/image/philippines/PH_"+activity_val+".png")
+
+        $('#region_menu_text').text($(this).text())
 
         $("#id_location").val(activity_val);
+    });
+
+    formSubmitBtn.click(function() {
+        form.submit();
     });
 });

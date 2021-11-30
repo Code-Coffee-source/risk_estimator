@@ -1,24 +1,30 @@
-
 $(document).ready(function() {
 
-    $('#id_t_unit').val('hours');
+    var timeUnit = $('#id_t_unit')
+    var minBtn = $('#minBtn')
+    var hrsBtn = $('#hrsBtn')
 
-    $('#hrsBtn').click( function() {
-        switchBtnState($(this), $('#minBtn'));
-        $('#id_t_unit').val($(this).val());
+    var form = $('#TimeAndPeopleForm')
+    var formSubmitBtn = $('#submit_btn')
+
+    timeUnit.val('hours');
+
+    hrsBtn.click( function() {
+        switchBtnState($(this), minBtn);
+        timeUnit.val($(this).val());
     });
 
-    $('#minBtn').click( function() {
-        switchBtnState($(this), $('#hrsBtn'));
-        $('#id_t_unit').val($(this).val());
+    minBtn.click( function() {
+        switchBtnState($(this), hrsBtn);
+        timeUnit.val($(this).val());
     });
 
-    $('#submitBtn').click(function() {
+    formSubmitBtn.click(function() {
         $('#id_time').val($('#time_input').val())
 
         $('#id_people').val($('#people_input').val())
 
-        $('#timeAndPeopleForm').submit()
+        form.submit()
 
     });
 });
