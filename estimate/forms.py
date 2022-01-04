@@ -1,4 +1,4 @@
-from django import forms 
+from django import forms
 from . import models, widgets
 
 class LocationForm(forms.Form):
@@ -50,12 +50,17 @@ class SizeForm(forms.Form):
 class ActivityLevelForm(forms.Form):
 
     activity_level = forms.CharField()
+    activity_sub_level = forms.CharField(initial="Oral_breathing")
 
     def __init__(self, *args, **kwargs):
         super(ActivityLevelForm, self).__init__(*args, **kwargs)
 
-        self.fields['activity_level'].widget = forms.NumberInput(attrs={
+        self.fields['activity_level'].widget = forms.TextInput(attrs={
             'id': 'activity_level',})
+
+        self.fields['activity_sub_level'].widget = forms.TextInput(attrs={
+            'id': 'activity_sub_level',})
+
 
 class timeAndPeopleForm(forms.Form):
 

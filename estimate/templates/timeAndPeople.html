@@ -3,105 +3,94 @@
 
 {% block meta_tags %} {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'estimate/css/TPM.css' %}">
-{% endblock %}
-
 {% block title %} Time And People {% endblock %}
 
-{% block head_js %}
+{% block body_js %}
     <script src="{% static 'estimate/js/timeAndPeople.js' %}" type="text/javascript"></script>
-{% endblock %}
-
-{% block progreesBar %}
-    <img class="" src={% static '/estimate/resources/image/ProgressBar/3_of_5.png'%}>
 {% endblock %}
 
 {% block input %}
 
-    <section class="mt-5">
+<div class="space-y-2 md:space-y-10 flex flex-col justify-evenly items-center md:py-40">
 
+    <div class="space-y-2 m-b w-72 md:w-100">
 
-            <div class="space-y-5">
+        <div class="flex flex-col text-center">
 
-                <div class="space-y-2">
+            <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How long will it take? </h1>
 
-                    <div class="flex flex-col text-center">
+        </div>
 
-                        <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How long will it take? </h1>
+        <div class="grid grid-cols-1 gap-2">
 
-                    </div>
+            <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1 text-xl py-4">
 
-                    <div class="grid grid-cols-1 gap-2">
+                <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/Duration.svg' %}" type="image/svg+xml"></object>
 
-                        <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1 text-xl py-4">
-
-                            <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/Duration.svg' %}" type="image/svg+xml"></object>
-
-                            <input  id="time_input"
-                                    class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
-                                    type="text"
-                                    placeholder="Input here">
-
-                        </div>
-
-                        <div class="text-charlotte-blue col-span-1 ">
-
-                            <div class="grid grid-cols-2 bg-gray-600 rounded-full p-1">
-
-                                <button id="hrsBtn" value="hours" type="button" class="active bg-dirty-white rounded-full py-4 text-charlotte-blue">
-                                    Hours
-                                </button>
-
-                                <button id="minBtn" value="minutes" type="button" class="inactive bg-transparent rounded-full py-4 text-gray-400">
-                                    Minutes
-                                </button>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="space-y-2">
-
-                    <div class="flex flex-col text-center">
-
-                        <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How many people are involved? </h1>
-
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-2">
-
-                        <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1 text-xl py-4">
-
-                            <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/People.svg' %}" type="image/svg+xml"></object>
-
-                            <input  id="people_input"
-                                    class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
-                                    type="text"
-                                    placeholder="Input here">
-
-                        </div>
-
-                    </div>
-
-                </div>
+                <input  id="time_input"
+                        class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Input here">
 
             </div>
 
-        <form id="TimeAndPeopleForm" method="POST" action="">
-            {% csrf_token%}
+            <div class="text-charlotte-blue col-span-1 ">
 
-            {{ form.time.as_hidden }}
-            {{ form.t_unit.as_hidden}}
-            {{ form.people.as_hidden }}
+                <div class="grid grid-cols-2 bg-gray-600 rounded-full p-1">
 
-        </form>
+                    <button id="hrsBtn" value="hours" type="button" class="active bg-dirty-white rounded-full py-4 text-charlotte-blue">
+                        Hours
+                    </button>
 
-    </section>
+                    <button id="minBtn" value="minutes" type="button" class="inactive bg-transparent rounded-full py-4 text-gray-400">
+                        Minutes
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="space-y-2 w-72 md:w-100">
+
+        <div class="flex flex-col text-center">
+
+            <h1 class="text-black text-lg md:text-xl xl:text-2xl font-semibold tracking-wide"> How many people are involved? </h1>
+
+        </div>
+
+        <div class="grid grid-cols-1 gap-2">
+
+            <div class="bg-dirty-white px-3 py-2 text-charlotte-blue rounded-full flex col-span-1 text-xl py-4">
+
+                <object class="h-6 w-6" data="{% static 'estimate/resources/icons/tpm_page/People.svg' %}" type="image/svg+xml"></object>
+
+                <input  id="people_input"
+                        class="bg-transparent ml-3 w-full text-charlotte-blue leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Input here">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<form id="TimeAndPeopleForm" method="POST" action="">
+    {% csrf_token%}
+
+    {{ form.time.as_hidden }}
+    {{ form.t_unit.as_hidden}}
+    {{ form.people.as_hidden }}
+
+</form>
+
+
 
 {% endblock %}

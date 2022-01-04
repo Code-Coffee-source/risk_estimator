@@ -9,55 +9,86 @@
 
 {% block title %} Activity Level {% endblock %}
 
-{% block head_js %}
+{% block body_js %}
     <script src="{% static 'estimate/js/activity_level.js' %}" type="text/javascript"></script>
-{% endblock %}
-
-{% block progreesBar %}
-    <img class="" src={% static '/estimate/resources/image/ProgressBar/2.1_of_5.png'%}>
 {% endblock %}
 
 {% block input %}
 
-    <section class="mt-5 text-charlotte-blue">
-        <form id="ActivityLevelForm" method="POST" action="">
-            {% csrf_token %}
+<div class="flex flex-col justify-center space-x-3">
 
-            {{ form.activity_level.as_hidden }}
+  <div class="flex justify-center space-x-3">
 
-            <div class="space-y-5">
+      <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How intense is the activity? </h1>
+      <span class=" flex justify-center items-center">
+          <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
+      </span>
 
-                <div class="space-y-2">
+  </div>
 
-                    <div class="flex justify-center space-x-3"> 
-                        <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How intense is the activity? </h1>
-                        <span class=" flex justify-center items-center"> 
-                            <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
-                        </span>
-                    </div>
+</div>
 
-                    <div class="space-y-3 text-center">
-                        <img id="activity_image" src='/static/estimate/resources/image/activity_level/Resting.png'>
+<div class="w-full carousel">
 
-                        <h2 id="activity_level_title" class="font-semibold text-2xl md:text-4xl xl:text-5xl tracking-wider"> Resting </h2>
+  {% for level in activity_levels %}
+  <div id="slide{{ forloop.counter }}" class="relative w-full carousel-item">
+    <div class="flex justify-center p-5 lg:py-6 lg:px-20 w-full ">
 
-                        <p id="activity_level_desc" class="text-base md:text-lg xl:text-xl"> An activity that requires you to stay in a relaxed position. Examples: Sitting down and sleeping.</p>
+      <div class="card shadow-lg" >
 
-                    </div>
+        <figure class="p-6 pb-0 md:h-80">
+          <img class="h-full w-full" src="{{ level.Image.url }}"  alt="My image"></img>
+        </figure>
 
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="range-slider-counter w-full col-span-3">
-                            <input type="range" min="1" max="4" value="1" class="slider h-2 w-full" oninput="showVal(this.value)" onchange="showVal(this.value)" id="maskSlider">
-                        </div>
+        <div class="card-body flex flex-col justify-center pt-0 mt-0">
+          <h2 class="card-title text-3xl"> {{ level.Name }} </h2>
+          <p>{{ level.Desc }}</p>
 
-                    </div>
+          <div class="card-actions py-4 flex flex-col mt-0 pt-0">
 
+            <div class="space-x-3">
+              <button id="slideSelectButton{{ forloop.counter }}" class="slideSelectBtn btn bg-charlotte-gold border-none my-2" value="{{level.Code}}">Select</button>
+
+              <div id="slideSelectAlert{{ forloop.counter }}" class="alert alert-info m-0 hidden inline-block">
+                <div class="flex">
+                  <label>Selected</label>
                 </div>
-
+              </div>
             </div>
 
-        </form>
+            <div class="space-y-3">
+              <h6 class="font-bold text-gray-500"> Advanced Settings </h6>
 
-    </section>
+              <div class="btn-group font-normal">
+                <button id="OB{{ forloop.counter }}" class="adv_btn btn btn-sm btn-active" value="Oral_breathing">Oral Breathing</button>
+                <button id="S{{ forloop.counter }}" class="adv_btn btn btn-sm" value="Speaking">Speaking</button>
+                <button id="LS{{ forloop.counter }}" class="adv_btn btn btn-sm" value="Loudly_speaking">Loudly Speaking</button>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hidden absolute lg:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="{% if forloop.counter|add:'1' == 0 %} #slide4 {% else %} #slide{{ forloop.counter|add:'-1' }} {% endif %}"  class="btn btn-circle">❮</a>
+      <a href="{% if forloop.counter|add:'1' == 5 %} #slide1 {% else %} #slide{{ forloop.counter|add:'1' }} {% endif %}" class="btn btn-circle">❯</a>
+    </div>
+
+  </div>
+  {% endfor %}
+
+</div>
+
+<form id="ActivityLevelForm" method="POST" action="">
+    {% csrf_token %}
+
+    {{ form.activity_level.as_hidden }}
+    {{ form.activity_sub_level.as_hidden }}
+</form>
 
 {% endblock %}

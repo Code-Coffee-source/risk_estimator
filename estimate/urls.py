@@ -13,5 +13,7 @@ urlpatterns = [
 
     path('masks', views.masks_view.as_view(), name='masks'),
 
+    path('summary', views.summary_view.as_view(), name="summary"),
+
     path('results', views.result_view.as_view(), name='result')
 ]

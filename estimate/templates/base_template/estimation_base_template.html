@@ -24,14 +24,13 @@
                 integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
                 crossorigin="anonymous">
 
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
         {% block css %} {% endblock %}
 
-        <!-- js -->
 
-        <!-- minified jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-        <script src="{% static 'estimate/js/estimation_base.js' %}" type="text/javascript"></script>
 
         {% block head_js %}{% endblock %}
     </head>
@@ -39,111 +38,87 @@
     <body>
 
         <!-- site header -->
-        <header class="px-8 sm:px-20 lg:px-96 font-sans">
-            <!-- This example requires Tailwind CSS v2.0+ -->
-                <nav class="bg-white">
-                    <div class="max-w-7xl py-5">
+        <header class="px-8 sm:px-20 lg:px-72 font-sans text-charlotte-blue">
+        <!-- This example requires Tailwind CSS v2.0+ -->
 
-                        <div class="inset-x-0 top-0 flex items-center justify-between">
+            <div class="navbar my-2 bg-white px-0">
 
-                            <div class="flex space-x-1 items-center">
-                                <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
-                                <div class="flex items-center">
-                                    <a class="tracking-tighter text-3xl font-black text-charlotte-blue"> aspire </a>
-                                </div>
-                            </div>
+              <div class="flex-1 mx-2">
+                <span class="text-lg font-bold flex items-center space-x-1">
+                  <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
+                  <div class="flex items-center">
+                      <a class="tracking-tighter text-3xl font-black text-charlotte-blue"> aspire </a>
+                  </div>
+                </span>
+              </div>
 
-                            <button id="menu_btn" class="bg-dirty-white p-3 rounded-xl h-14 w-14">
-                                <object class="h-8 w-8" data="{% static 'estimate/resources/image/base/Menu (1).svg' %}" type="image/svg+xml"></object>
+              <div class="flex-none hidden px-2 mx-2 lg:flex">
+                <div class="flex items-stretch space-x-2">
+                  <a class="btn btn-ghost btn-sm rounded-btn">
+                    <i class="fas fa-home inline-block w-5 mr-2 "></i>
+                          Homepage
+                  </a>
 
-                            </button>
+                  <a id="summary_btn" href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                    <i  class="fas fa-scroll inline-block w-5 mr-2"></i>
+                          Summary
 
-                        </div>
-
-                    </div>
-                </nav>
-                <div id="mobile_menu" class='grid grid-cols-1 gap-2 divide-y divide-gray-300 bg-dirty-white m-3 text-center rounded-xl shadow-md h-0 overflow-hidden'>
-
-                    <div class="p-3">
-
-                        <span> SUMMARY </span>
-
-                        <ul class="font-medium space-y-1 text-left">
-                            <li>
-                                <span> Location: {{ location }}</span>
-                            </li>
-
-                            <li>
-                                <span> Activity: {{ activity }}</span>
-                            </li>
-
-                            <li>
-                                <span> Intensity: {{ intensity }} </span>
-                            </li>
-
-                            <li>
-                                <span> Room Size: {{ floor_area }} m (Floor Area) x {{ room_height }} m (Room Height)</span>
-                            </li>
-
-                            <li>
-                                <span> Ventilation: {{ ventilation }}</span>
-                            </li>
-
-                            <li>
-                                <span> Duration: {{ time }} {{t_unit}}</span>
-                            </li>
-
-                            <li>
-                                <span> Number of People: {{ people }} </span>
-                            </li>
-
-                            <li>
-                                <span> Mask Percentage: {{maskPercent}} </span>
-                            </li>
-
-                            <li>
-                                <span> Mask Type: {{maskType}} </span>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                    <a type="button" class="w-full py-3 hover:bg-red-100">
-                        <span class=""> HOMEPAGE </span>
-                    </a>
-
-                    <a type="button" class="w-full py-3 hover:bg-red-100">
-                        <span class=""> HOMEPAGE </span>
-                    </a>
-
+                  </a>
 
                 </div>
-</header>
+              </div>
+              <div class="flex-none">
+                <button class="btn btn-square btn-ghost">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+        </header>
+
+
+
+
 
         <!-- site content -->
-        <main class="px-8 sm:px-20 lg:px-96 space-y-6 font-sans text-charlotte-blue pb-5">
+        <main class="px-8 sm:px-20 lg:px-72 space-y-6 font-sans text-charlotte-blue pb-5">
 
-            <section class="space-y-5" >
+            <section class="space-y-3" >
 
-                <div class="grid grid-cols-5 gap-2" >
+                <div class="grid grid-cols-5 gap-3" >
                     <div class="col-span-4">
                         <h3 class="text-base md:text-lg xl:text-xl tracking-tight"> Estimation stage </h3>
                         <h2 class="font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter"> {{ stage_title }} </h2>
                     </div>
 
-                    <div class="flex-reverse text-right items-end" >
-                        <h3 class="text-base md:text-lg xl:text-xl tracking-tight font-black"> 1 of 5 </h3>
+                    <div class="flex items-end justify-end" >
+                        <h3 class=" text-xl md:text-2xl tracking-tight font-black"> {{ stage_number }} of 5 </h3>
                     </div>
 
-
-
                     <div class="col-span-5 grid grid-cols-5 gap-1">
-                        <div class="bg-charlotte-gold h-1"> </div>
-                        <div class="bg-charlotte-gold h-1"> </div>
-                        <div class="bg-charlotte-gold h-1"> </div>
-                        <div class="bg-charlotte-gold h-1"> </div>
-                        <div class="bg-charlotte-gold h-1"> </div>
+                        <div class="{% if stage_number >= 1 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1"> </div>
+
+                        <div class="{% if stage_number >= 2 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1">
+
+                        </div>
+                        <div class="h-1 grid grid-cols-4">
+                          <div class="{% if stage_number >= 2.1 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1">
+
+                          </div>
+                          <div class="{% if stage_number >= 2.2 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1">
+
+                          </div>
+                          <div class="{% if stage_number >= 2.3 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1">
+
+                          </div>
+                          <div class="{% if stage_number >= 3 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1">
+
+                          </div>
+                        </div>
+                        <div class="{% if stage_number >= 4 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1"> </div>
+                        <div class="{% if stage_number >= 5 %} bg-charlotte-blue {% else %} bg-cool-gray-400 {% endif %} h-1"> </div>
                     </div>
 
                 </div>
@@ -152,31 +127,55 @@
 
             </section>
 
-            {% block input %}
+            {% if request.path != '/estimate/results' %}
+            <section class="space-y-3 mt-5 xl:px-32 font-sans">
+              {% block input %}
+              {% endblock %}
+            </section>
 
-            {% endblock %}
+            {% if request.path != '/estimate/summary' %}
+            <div class="grid grid-cols-1 gap-3 justify-items-center md:flex md:flex-row-reverse md:justify-between">
 
-            <div class="grid grid-cols-1 gap-3 md:flex md:flex-row-reverse">
+              <button id="submit_btn" type="button" class="text-xl text-gray-500 w-72 bg-gray-600 rounded-full text-center py-4 cursor-not-allowed" disabled>
+                  Next
+              </button>
 
+              <a href="{{ back_link }}" type="button" class=" text-xl text-charlotte-blue w-72 bg-dirty-white rounded-full text-center py-4">
+                  Back
+              </a>
 
-                <a id="submit_btn" type="button" class="text-xl text-white col-span-1 md:w-1/2 bg-charlotte-green rounded-full text-center py-4">
-                    Next
-                </a>
+            </div>
+            {% else %}
 
-                <a href={{ back_link }} class="text-xl text-charlotte-blue col-span-1 md:w-1/2 bg-dirty-white rounded-full text-center py-4">
-                    Back
-                </a>
+            <div class="grid grid-cols-1 gap-3 justify-items-center md:flex md:flex-row-reverse md:justify-between">
 
+              <a href="{% url 'result' %}" type="button" class="text-xl text-white w-72 bg-charlotte-green rounded-full text-center py-4">
+                  Next
+              </a>
+
+              <a href="{{ back_link }}" type="button" class="text-xl text-charlotte-blue w-72 bg-dirty-white rounded-full text-center py-4">
+                  Back
+              </a>
 
             </div>
 
+            {% endif %}
+
+            {% endif %}
+
         </main>
 
-        <!-- js -->
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        {% if request.path == '/estimate/results' %}
+        <section class="space-y-3 font-sans">
+          {% block results %}
+          {% endblock %}
+        </section>
+        {% endif %}
 
+        <!-- js -->
+        <script src="{% static 'layout/js/jquery.js' %}"></script>
+        <script src="{% static 'layout/js/jquery-ui.min.js' %}"></script>
+        <script src="{% static 'estimate/js/estimation_base.js' %}" type="text/javascript"></script>
 
         <!-- Required popper.js -->
         <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>

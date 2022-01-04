@@ -7,19 +7,15 @@
 
 {% block title %} Activity Presets {% endblock %}
 
-{% block head_js %}
+{% block body_js %}
     <script src="{% static 'estimate/js/presets.js' %}" type="text/javascript"></script>
-{% endblock %}
-
-{% block progreesBar %}
-    <img class="" src={% static '/estimate/resources/image/ProgressBar/2_of_5.png'%}>
 {% endblock %}
 
 {% block input %}
 
-    <section class="space-y-3">
+    <section class="space-y-3 px-0 font-sans">
 
-        <div class="flex justify-center space-x-3"> 
+        <div class="flex justify-center space-x-3">
             <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> What is the planned activity? </h1>
         </div>
 
@@ -30,23 +26,23 @@
 
         </form>
 
-        <div class="flex flex-col text-center my-3 justify-center space-y-3">
+        <div class="flex flex-col text-center my-3 justify-center space-y-3 md:h-136 px-0 md:px-20 lg:px-0">
 
-            <div class="grid grid-cols-3 gap-x-6 gap-y-2 text-charlotte-blue">
+            <div class="grid grid-cols-3 gap-x-6 md:gap-x-3 gap-y-2 md:gap-y-1 text-charlotte-blue h-full ">
 
                 {% for preset in presets %}
 
                     <button name="preset"
                             value="{{ preset.Code }}"
-                            class="presetBtn bg-dirty-white p-1 h-24 w-24 rounded-4xl font-semibold place-self-center shadow-md
+                            class="presetBtn bg-dirty-white p-1 md:p-2 xl:p-3 h-24 w-24 md:h-32 md:w-32 xl:h-40 xl:w-40 rounded-4xl md:rounded-7xl font-semibold place-self-center shadow-md
                                     transform transition duration-300 ease-in-out text-charlotte-blue
-                                    focus:bg-beige active:bg-beige hover:bg-beige focus:scale-105 active:scale-105 hover:scale-105 
+                                    focus:bg-beige active:bg-beige hover:bg-gray-300 focus:scale-105 active:scale-105 hover:scale-105
                                     focus:shadow-xl active:shadow-xl hover:shadow-xl" >
 
                         <span>
-                            <img class="h-14 w-14 m-auto" src="{{ preset.image.url }}" alt="My image">
+                            <img class="h-14 w-14 md:w-16 md:h-16 xl:h-20 xl:w-20 m-auto" src="{{ preset.Image.url }}" alt="My image"></img>
                         </span>
-                        <span class="leading-none text-sm"> {{ preset }} </span>
+                        <span class=" leading-none text-sm md:text-normal xl:text-xl"> {{ preset }} </span>
                     </button>
 
                 {% endfor %}
@@ -55,8 +51,8 @@
 
             <a href="{% url 'activity_level' %}" type="button" class="flex w-full text-lg bg-dirty-white rounded-full text-center font-black p-4 relative">
                 <span class="w-full text-center font-charlotte-blue"> Create Your Own </span>
-                
-                <object class="h-8 w-8 absolute self-center" data="{% static 'estimate/resources/icons/activity_presets/Create.svg' %}" type="image/svg+xml"></object> 
+
+                <object class="h-8 w-8 absolute self-center" data="{% static 'estimate/resources/icons/activity_presets/Create.svg' %}" type="image/svg+xml"></object>
             </a>
 
         </div>

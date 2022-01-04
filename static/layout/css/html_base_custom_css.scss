@@ -1,0 +1,16 @@
+
+.mobile_menu {
+
+    transition: all 1s ease-in-out;
+
+}
+
+.nav_{
+
+    &collapse {
+        max-height: 0;
+    }
+    &show {
+        max-height: 20rem;
+    }
+}

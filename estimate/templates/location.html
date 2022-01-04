@@ -7,85 +7,100 @@
 
 {% block title %} Activity Location {% endblock %}
 
-{% block head_js %}
-    <script src="{% static 'estimate/js/location.js' %}" type="text/javascript"></script>
-{% endblock %}
-
-{% block progreesBar %}
-    <img class="" src={% static '/estimate/resources/image/ProgressBar/1_of_5.png'%}>
+{% block body_js %}
+  <script src="{% static 'estimate/js/location.js' %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block input %}
 
-    <section class="space-y-3 mt-5 xl:px-32 font-sans">
+<div class="flex flex-col text-center">
 
-        <div class="flex flex-col text-center">
+  <div class="flex justify-center space-x-3">
+    <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> Where will the activity be in? </h1>
+    <span class=" flex justify-center items-center">
+      <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
+    </span>
+  </div>
 
-            <div class="flex justify-center space-x-3"> 
-                <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> Where will the activity be in? </h1>
-                <span class=" flex justify-center items-center"> 
-                    <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
-                </span>
-            </div>
+  <div class="relative h-96 md:h-136 flex justify-center">
+    <img class="absolute h-full mx-auto" src="{% static 'estimate/resources/image/philippines/PH_All.png' %}">
+    <img id="region_image" class="absolute h-full mx-auto" src="/static/estimate/resources/image/philippines/PH_R1.png">
+  </div>
 
-            
+</div>
 
-            <div class="relative h-96 flex justify-center">
-                <img class="absolute h-96 mx-auto" src="{% static 'estimate/resources/image/philippines/PH_All.png' %}">
-                <img id="region_image" class="absolute h-96 mx-auto" src="/static/estimate/resources/image/philippines/PH_R1.png">
-            </div>
+<div class="flex justify-end">
+
+  <div class="relative text-left flex-grow">
+
+    <div class='flex justify-center'>
+
+      <div class="dropdown dropdown-top dropdown-end">
+        <label id="region_menu_text" tabindex="1" type="button" class="md:hidden text-xl w-72 md:w-100 text-white bg-charlotte-gold rounded-full p-4 flex justify-between">
+          <span> Regions </span>
+          <span class="">
+            <i class="fas fa-caret-up"></i>
+          </span>
+        </label>
+        <ul tabindex="1" class= "p-2 shadow menu dropdown-content bg-base-100 rounded-box w-72 md:w-100">
+
+          {% for region in regions %}
+
+          <li>
+            <button class="regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
+          </li>
+
+          {% endfor %}
+
+        </ul>
+      </div>
+
+      <label id="region_menu_text" for="regions-modal" type="button" class="hidden md:flex text-xl w-72 md:w-100 text-white bg-charlotte-gold rounded-full p-4  justify-between">
+        <span> Regions </span>
+        <i class="fas fa-caret-down"></i>
+      </label>
+
+      <input type="checkbox" id="regions-modal" class="modal-toggle">
+      <div class="modal hidden md:flex ">
+        <div class="modal-box space-y-6">
+
+          <ul class="menu p-4 shadow-lg bg-base-100 rounded-box">
+
+            <li class="menu-title">
+              <span> Regions menu </span>
+            </li>
+
+            {% for region in regions %}
+
+            <li>
+              <button class="regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
+            </li>
+
+            {% endfor %}
+
+          </ul>
+
+          <button id="regionMenuToggle" type="button" class="text-xl text-charlotte-blue w-full shadow-md bg-dirty-white rounded-full text-center py-4">
+              Close
+          </button>
 
         </div>
+      </div>
+    </div>
 
-        <div class="flex justify-end">
+  </div>
 
-            <div class="relative text-left flex-grow">
-                <div>
-                    <button type="button" class=" flex items-center justify-between w-full rounded-full shadow-sm px-4 py-3 bg-charlotte-gold text-xl text-white hover:shadow-xl " id="regions_menu_btn" aria-expanded="true" aria-haspopup="true">
-                        <span id="region_menu_text"> Regions </span>
-                        <!-- Heroicon name: solid/chevron-down -->
-                        <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
+</div>
 
-                <!--
-                    Dropdown menu, show/hide based on menu state.
+<form id="LocationForm" action="" method="POST">
 
-                    Entering: "transition ease-out duration-100"
-                    From: "transform opacity-0 scale-95"
-                    To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                    From: "transform opacity-100 scale-100"
-                    To: "transform opacity-0 scale-95"
-                -->
-                <div id="regions-menu" class=" closed origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
-                                                transition ease-in duration-75 transfrom opacity-0 scale-0 h-0 overflow-auto"
+{% csrf_token %}
 
-                                        role="menu" aria-orientation="vertical" aria-labelledby="regions_menu_btn" tabindex="-1">
-                    <div class="py-1" role="none">
+<input type="hidden" id="next_link" name="next_link">
 
-                    {% for region in regions %}
-                        <button class="regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}>{{ region }}</button>
-                    {% endfor %}
+{{form.location.error}}
+{{form.location.as_hidden}}
 
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <form id="LocationForm" action="" method="POST">
-            {% csrf_token %}
-            {{form.location.error}}
-            {{form.location.as_hidden}}
-
-        </form>
-
-    </section>
+</form>
 
 {% endblock %}
-
-
-

@@ -1,6 +1,6 @@
 from django.db import models
 import numpy as np
-
+import json
 # Create your models here.
 class LocationInfo(models.Model):
 
@@ -26,8 +26,13 @@ class LocationInfo(models.Model):
 class ActivityLevels(models.Model):
 
     Name = models.CharField(max_length=225, default="")
-    QuantaExhalationRate = models.FloatField(max_length=225, default="")
+    Desc = models.CharField(max_length=225, default="")
+    QuantaExhalationRate = models.FloatField(max_length=225, default=0)
     Code = models.CharField(max_length=225, default="")
+    Image = models.ImageField(blank=True, null=True, upload_to="ActivityPresets")
+    Oral_breathing = models.FloatField(max_length=225, default=0)
+    Speaking = models.FloatField(max_length=225, default=0)
+    Loudly_speaking = models.FloatField(max_length=225, default=0)
 
     class Meta:
         verbose_name = "Activity Level"
@@ -43,7 +48,7 @@ class ActivityPreset(models.Model):
     Room_Height = models.FloatField(default=0)
     Code = models.CharField(max_length=225, default="")
     Activity_Level = models.ForeignKey(ActivityLevels, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(blank=True, null=True, upload_to="ActivityPresets")
+    Image = models.FileField(blank=True, null=True, upload_to="ActivityPresets")
 
     class Meta:
         verbose_name = "Preset"
@@ -67,7 +72,7 @@ class MaskType(models.Model):
     inhalationMaskEfficiency = models.FloatField(default=0)
     exhalationMaskEfficiency = models.FloatField(default=0)
     Code = models.CharField(max_length=225, default="")
-    image = models.ImageField(blank=True, null=True, upload_to="masks")
+    image = models.FileField(blank=True, null=True, upload_to="masks")
 
 
     class Meta:
@@ -86,7 +91,7 @@ class Ventilation(models.Model):
     Occupant_Density = models.FloatField(default=0)
     Use_In_Custom = models.BooleanField(default=False)
     Code = models.CharField(max_length=225, default="")
-    image = models.ImageField(blank=True, null=True, upload_to="VentilationCustoms")
+    image = models.FileField(blank=True, null=True, upload_to="VentilationCustoms")
 
     class Meta:
         verbose_name = "Ventilation Values"
@@ -95,17 +100,43 @@ class Ventilation(models.Model):
     def __str__(self):
         return self.Name
 
-class result_formula:
+class result_formula(models.Model):
+
+    Name = models.CharField(max_length=225, default="")
+    upper_value = models.FloatField(default=0)
+    lower_value = models.FloatField(default=0)
+    Desc = models.CharField(max_length=225, default="")
+    image = models.FileField(blank=True, null=True, upload_to="Results")
+
+    class Meta:
+        verbose_name = "Result Type Settings"
+        verbose_name_plural = "Results"
+
+    def get_risk_level(self, risk_score):
+
+        queryset = self._meta.model.objects.all()
+
+        risk_level = None
+        while risk_level == None:
+            for object in queryset:
+
+                risk_level = object if (risk_score >= object.lower_value) & (risk_score < object.upper_value) else None
+
+                if risk_level != None:
+                    break
+
+        return risk_level
+
+    def __str__(self):
+        return self.Name
 
     #Formula 1
     def probInfectionFunction(quantaInhaled, diseasePrevalenceFunction, peopleSusceptible):
-        probability_of_infection = 1 - (1 - diseasePrevalenceFunction * (1 - np.exp(-quantaInhaled))) ** peopleSusceptible
-        print(f"probability of infection => {probability_of_infection}" )
-        return probability_of_infection
+        return 1 - (1 - diseasePrevalenceFunction * (1 - np.exp(-quantaInhaled))) ** peopleSusceptible
 
     #Formula 2
     def quantaInhaledFunction(meanQuantaConcentration, breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks):
-        return round(meanQuantaConcentration * breathingRate * eventDuration * (1 - inhalationMaskEfficiency * peopleWithMasks), 2)
+        return float(meanQuantaConcentration) * float(breathingRate) * float(eventDuration) * (1 - float(inhalationMaskEfficiency) * float(peopleWithMasks))
 
     #Formula 4
     def emissionRateFunction(quantaExhalationRate, exhalationMaskEfficiency, peopleWithMasks, infectivePeople):
@@ -113,11 +144,11 @@ class result_formula:
 
     #Formula 3
     def meanQuantaConcentrationFunction(emissionRate, lossRate, roomVolume, eventDuration):
-        return round(emissionRate / lossRate / roomVolume * (1 - (1 / lossRate / eventDuration) * (1 - np.exp(-lossRate * eventDuration))), 2)
+        return float(float(emissionRate) / float(lossRate) / float(roomVolume) * (1 - (1 / float(lossRate) / float(eventDuration)) * (1 - np.exp(float(-lossRate) * float(eventDuration)))))
 
     #Formula 5
-    def lossRateFunction(outsideVentilation, decayRate, virusDeposition):
-        return outsideVentilation + decayRate + virusDeposition
+    def lossRateFunction(outsideVentilation, decayRate, virusDeposition, controlMeasures):
+        return outsideVentilation + decayRate + virusDeposition + controlMeasures
 
     #Formula 7
     def ventilationRateFunction(occupantDensity, floorArea, peopleOutdoorRate, areaOutdoorRate):
@@ -135,12 +166,15 @@ class result_formula:
     def peopleSusceptibleFunction(numberOfPeople, infectivePeople, fractionImmune):
         return (numberOfPeople - infectivePeople) * (1 - fractionImmune)
 
-    def mainFunction(self, breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks, roomVolume, quantaExhalationRate, exhalationMaskEfficiency,
-                    infectivePeople, decayRate, virusDeposition, occupantDensity, floorArea,
-                    peopleOutdoorRate, areaOutdoorRate, numberOfCases, population, numberOfPeople, fractionImmune):
+    def get_risk_score(self, breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks, roomVolume, quantaExhalationRate, exhalationMaskEfficiency,
+                      infectivePeople, decayRate, virusDeposition, controlMeasures, occupantDensity, floorArea,
+                     peopleOutdoorRate, areaOutdoorRate, numberOfCases, population, numberOfPeople, fractionImmune):
 
-        return self.probInfectionFunction(
-                self.quantaInhaledFunction(self.meanQuantaConcentrationFunction(self.emissionRateFunction(quantaExhalationRate, exhalationMaskEfficiency, peopleWithMasks, infectivePeople),
-                self.lossRateFunction(self.outsideVentilationFunction(self.ventilationRateFunction(occupantDensity, floorArea, peopleOutdoorRate, areaOutdoorRate), roomVolume), decayRate, virusDeposition), roomVolume, eventDuration), breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks),
-                self.diseasePrevalenceFunction(numberOfCases, population), self.peopleSusceptibleFunction(numberOfPeople, infectivePeople, fractionImmune))
+        data_dict = {key:val for key, val in locals().items() if key != 'self'}
 
+
+        result = self.probInfectionFunction(self.quantaInhaledFunction(self.meanQuantaConcentrationFunction(self.emissionRateFunction(quantaExhalationRate, exhalationMaskEfficiency, peopleWithMasks, infectivePeople), self.lossRateFunction(self.outsideVentilationFunction(self.ventilationRateFunction(occupantDensity, floorArea, peopleOutdoorRate, areaOutdoorRate), roomVolume), decayRate, virusDeposition, controlMeasures), roomVolume, eventDuration), breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks), self.diseasePrevalenceFunction(numberOfCases, population), self.peopleSusceptibleFunction(numberOfPeople, infectivePeople, fractionImmune))
+
+        data_dict["result"] = result
+
+        return result

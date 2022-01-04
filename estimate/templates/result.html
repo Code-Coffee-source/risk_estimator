@@ -1,244 +1,82 @@
+{% extends 'base_template/estimation_base_template.html' %}
+{% load filters %}
+
 {% load static %}
 
-<html lang="en">
-    <head>
+{% block meta_tags %} {% endblock %}
 
-        <!-- meta -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block meta_tags %} {% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'estimate/css/results.css' %}">
+ {% endblock %}
 
-        <!-- title -->
-        <title> Results </title>
+{% block title %} Results {% endblock %}
 
+{% block body_js %}
+    <script src="{% static 'estimate/js/ventilation.js' %}" type="text/javascript"></script>
+{% endblock %}
 
-        <!-- css -->
+{% block results %}
 
-        <!-- tailwind stylesheet -->
-        <link rel="stylesheet" href="{% static 'layout/tailwind/build/tailwind.css' %}">
-        <link rel="stylesheet" href="{% static 'layout/css/html_base_custom_css.css' %}">
+<section class="{{ result.Name }}_bg h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 text-center flex flex-col space-y-6 py-10">
 
-        <link rel="stylesheet" href="{% static 'estimate/css/results.css' %}">
+    <span class="font-bold {{ result }}_txt"> Your activity has a...</span>
 
-        <!-- font awseome icons -->
-        <link   rel="stylesheet"
-                href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-                integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-                crossorigin="anonymous">
+    <span class="mx-auto">
 
-        {% block css %} {% endblock %}
+        <img class="w-56 h-56" src='{{ result.image.url }}'>
 
-        <!-- js -->
+    </span>
 
-        <!-- minified jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <h2 class="font-semibold text-xl md:text-3xl xl:text-4xl tracking-wider text-white"> {{ result.Name|titleify }} </h2>
 
-        <script src="{% static 'estimate/js/estimation_base.js' %}" type="text/javascript"></script>
+    <span class="text-white"> {{ result.Desc }} </span>
 
-        {% block head_js %}{% endblock %}
-    </head>
+</section>
 
-    <body>
+<section class="h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 flex flex-col space-y-6 ">
 
-        <!-- site header -->
-        <header class="px-8 sm:px-20 lg:px-96 font-sans">
-            <!-- This example requires Tailwind CSS v2.0+ -->
-                <nav class="bg-white">
-                    <div class="max-w-7xl py-5">
+    <div class="flex jusify-center items-stretch space-x-5">
 
-                        <div class="inset-x-0 top-0 flex items-center justify-between">
+        <img class="h-16" src={% static '/estimate/resources/image/results/Disclaimer.png'%}>
 
-                            <div class="flex space-x-1 items-center">
-                                <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
-                                <div class="flex items-center">
-                                    <a class="tracking-tighter text-3xl font-black text-charlotte-blue"> aspire </a>
-                                </div>
-                            </div>
+        <span class="text-gray-400 self-center text-left"> This is only an estimation and should not replace advice from medical professionals. </span>
 
-                            <button id="menu_btn" class="bg-dirty-white p-3 rounded-xl h-14 w-14">
+    </div>
 
-                                <img src={% static '/estimate/resources/image/base/Menu.png'%}>
+</section>
 
-                            </button>
 
-                        </div>
+<section class="px-8 sm:px-20 lg:px-96 py-3 xl:py-10 flex flex-col text-charlotte-blue text-center">
 
-                    </div>
-                </nav>
-                <div id="mobile_menu" class='grid grid-cols-1 gap-2 divide-y divide-gray-300 bg-dirty-white m-3 text-center rounded-xl shadow-md h-0 overflow-hidden'>
+    <h3 class="font-bold text-xl"> Want to test other values? </h3>
 
-                    <a type="button" class="w-full py-3 hover:bg-red-100">
-                        <span class=""> HOMEPAGE </span>
-                    </a>
+    <span class="flex flex-col space-y-5 justify-center items-center">
+        <a href="{% url 'summary' %}" type="button" class=" shadow-sm rounded-full bg-dirty-white py-1 text-lg font-medium w-52"> Go back to summary </a>
 
-                    <a type="button" class="w-full py-3 hover:bg-red-100">
-                        <span class=""> HOW TO USE </span>
-                    </a>
+        <a href="{% url 'location' %}" type="button" class=" shadow-sm rounded-full bg-dirty-white py-1 text-lg font-medium w-52"> Get new risk level </a>
 
-                    <a type="button" class="w-full py-3 hover:bg-red-100">
-                        <span class=""> HOW IT WORKS </span>
-                    </a>
+    </span>
 
+</section>
 
-                </div>
-        </header>
+<section class="px-8 sm:px-20 lg:px-96 py-2 xl:py-10 flex flex-col text-gray-400 text-left leading-snug space-y-4">
 
-        <!-- site content -->
-        <main>
+    <span class=""> Thank you very much for using aspire! Please support the researchers by answering a short survery to help improve the website! </span>
 
-            <section class="space-y-4 px-8 sm:px-20 lg:px-96 space-y-3" >
-            
-                <div class="flex justify-between">
+    <section class=" flex flex-col text-lg text-white text-center space-y-4">
 
-                    <div class="">
-                        <h3 class="text-base md:text-lg xl:text-xl tracking-tight"> Estimation Stage </h3>
-                        <h2 class="font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter"> Risk Result </h2>
-                    </div>
+        <span>
+            <a type="button" class=" rounded-full bg-charlotte-blue py-2 w-full text-lg font-medium"> Learn how aspire works </a>
+        </span>
 
-                    <div class="w-1/5 h-1/5 md:w-1/7 md:h-1/7">
-                        <img class="" src={% static '/estimate/resources/image/ProgressBar/5_of_5.png'%}>
-                    </div>
+        <span>
+            <a href="https://docs.google.com/forms/d/1TwiYEl0IfP50CqSHKBBekSYg1rAgNhvHi4ZDRwQd8MA/edit?usp=sharing" type="button" class=" rounded-full bg-charlotte-green py-2 w-full text-lg font-medium"> Answer Survey </a>
+        </span>
 
+    </section>
 
-                </div>
+</section>
 
-                <p class="text-base md:text-lg xl:text-xl"> Description that helps the user understand the risk.</p>
 
-            </section>
 
-            <section class="{% if result == 2 %}
-                                low_risk
-
-                            {% elif result == 3 %}
-                                med_risk
-
-                            {% elif result == 4 %}
-                                high_risk
-
-                            {% elif result == 5 %}
-                                very_high_risk
-
-                            {% else %}
-                                very_low_risk
-
-                            {% endif %}
-
-                            h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 text-center flex flex-col space-y-6 py-10">
-
-                <span class="text-green-400 font-bold"> Your activity has a...</span>
-
-                <span class="mx-auto">
-
-                    <img class="w-56 h-56" src={% static '/estimate/resources/image/568205.png'%}>
-
-                </span>
-
-                <h2 class="font-semibold text-xl md:text-3xl xl:text-4xl tracking-wider text-white"> Insert Risk Here </h2>
-
-                <span clas="text-white"> Insert Text Here </span>
-
-
-            </section>
-
-            <section class="h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 flex flex-col space-y-6 ">
-
-                <div class="flex jusify-center items-stretch space-x-5">
-
-                    <img class="h-16" src={% static '/estimate/resources/image/results/Disclaimer.png'%}>
-
-                    <span class="text-gray-400 self-center text-left"> This is only an estimation and should not replace advice from medical proffesionals. </span>
-
-                </div>
-
-            </section>
-
-            <section class="px-8 sm:px-20 lg:px-96 py-3 xl:py-10 flex flex-col text-charlotte-blue">
-
-                <h3 class="font-bold text-2xl"> Summary </h3>
-
-                <ul class="pl-10 font-medium space-y-1">
-                    <li>
-                        <span> Location: {{ location }}</span>
-                    </li>
-
-                    <li>
-                        <span> Activity: {{ activity }}</span>
-                    </li>
-
-                    <li>
-                        <span> Intensity: {{ intensity }} </span>
-                    </li>
-
-                    <li>
-                        <span> Room Size: {{ floor_area }} m (Floor Area) x {{ room_height }} m (Room Height)</span>
-                    </li>
-
-                    <li>
-                        <span> Ventilation: {{ ventilation }}</span>
-                    </li>
-
-                    <li>
-                        <span> Duration: {{ time }} {{t_unit}}</span>
-                    </li>
-
-                    <li>
-                        <span> Number of People: {{ people }} </span>
-                    </li>
-
-                    <li>
-                        <span> Mask Percentage: {{maskPercent}} </span>
-                    </li>
-
-                    <li>
-                        <span> Mask Type: {{maskType}} </span>
-                    </li>
-
-                </ul>
-
-            </section>
-
-            <section class="px-8 sm:px-20 lg:px-96 py-3 xl:py-10 flex flex-col text-charlotte-blue text-center">
-
-                <h3 class="font-bold text-xl"> Want to test other values? </h3>
-
-                <span>
-                    <a href="{% url 'location' %}" type="button" class=" shadow-sm rounded-full bg-dirty-white py-1 text-lg font-medium w-52"> Go back </a>
-                </span>
-
-            </section>
-
-            <section class="px-8 sm:px-20 lg:px-96 py-2 xl:py-10 flex flex-col text-gray-400 text-left leading-snug">
-
-                <span class=""> Thank you very much for using aspire! Please support the researchers by answering a short survery to help improve the website! </span>
-
-            </section>
-
-            <section class="px-8 sm:px-20 lg:px-96 py-2 xl:py-10 flex flex-col text-lg text-white text-center space-y-4">
-
-                <span>
-                    <a type="button" class=" rounded-full bg-charlotte-blue py-2 w-full text-lg font-medium"> Learn how aspire works </a>
-                </span>
-
-                <span>
-                    <a type="button" class=" rounded-full bg-charlotte-green py-2 w-full text-lg font-medium"> Next </a>
-                </span>
-
-            </section>
-
-
-
-        </main>
-        <!-- js -->
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-
-
-        <!-- Required popper.js -->
-        <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
-
-        {% block body_js %} {% endblock %}
-
-    </body>
-
-</html>
+{% endblock %}
