@@ -137,3 +137,5 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+import django_on_heroku
+django_on_heroku.settings(locals())
