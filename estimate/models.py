@@ -29,7 +29,7 @@ class ActivityLevels(models.Model):
     Desc = models.CharField(max_length=225, default="")
     QuantaExhalationRate = models.FloatField(max_length=225, default=0)
     Code = models.CharField(max_length=225, default="")
-    Image = models.ImageField(blank=True, null=True, upload_to="ActivityPresets")
+    Image = models.FileField(blank=True, null=True, upload_to="ActivityLevls")
     Oral_breathing = models.FloatField(max_length=225, default=0)
     Speaking = models.FloatField(max_length=225, default=0)
     Loudly_speaking = models.FloatField(max_length=225, default=0)
