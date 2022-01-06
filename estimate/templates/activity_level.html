@@ -91,6 +91,14 @@
   </div>
   {% endfor %}
 
+
+
+</div>
+
+<div class="flex justify-center w-full py-4 space-x-2">
+  {% for level in activity_levels %}
+  <div href="/components/carousel#item1" class="btn btn-xs btn-circle bg-charlotte-gold btn-disabled text-white" >{{ forloop.counter }}</div>
+  {% endfor %}
 </div>
 
 <form id="ActivityLevelForm" method="POST" action="">

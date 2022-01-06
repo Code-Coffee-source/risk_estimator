@@ -105,7 +105,7 @@ class result_formula(models.Model):
     Name = models.CharField(max_length=300, default="")
     upper_value = models.FloatField(default=0)
     lower_value = models.FloatField(default=0)
-    Desc = models.CharField(max_length=225, default="")
+    Desc = models.CharField(max_length=300, default="")
     image = models.FileField(blank=True, null=True, upload_to="Results")
 
     class Meta:

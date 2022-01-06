@@ -33,55 +33,19 @@
     <div class='flex justify-center'>
 
       <div class="dropdown dropdown-top dropdown-end">
-        <label id="region_menu_text" tabindex="1" type="button" class="md:hidden text-xl w-72 md:w-100 text-white bg-charlotte-gold rounded-full p-4 flex justify-between">
-          <span> Regions </span>
-          <span class="">
-            <i class="fas fa-caret-up"></i>
-          </span>
-        </label>
-        <ul tabindex="1" class= "p-2 shadow menu dropdown-content bg-base-100 rounded-box w-72 md:w-100">
+
+        <button tabindex="0" class="btn w-96"> Select Your Region </button>
+
+        <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 md:w-72 lg:w-96">
 
           {% for region in regions %}
 
           <li>
-            <button class="regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
+            <button class="btn btn-white regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
           </li>
 
           {% endfor %}
-
         </ul>
-      </div>
-
-      <label id="region_menu_text" for="regions-modal" type="button" class="hidden md:flex text-xl w-72 md:w-100 text-white bg-charlotte-gold rounded-full p-4  justify-between">
-        <span> Regions </span>
-        <i class="fas fa-caret-down"></i>
-      </label>
-
-      <input type="checkbox" id="regions-modal" class="modal-toggle">
-      <div class="modal hidden md:flex ">
-        <div class="modal-box space-y-6">
-
-          <ul class="menu p-4 shadow-lg bg-base-100 rounded-box">
-
-            <li class="menu-title">
-              <span> Regions menu </span>
-            </li>
-
-            {% for region in regions %}
-
-            <li>
-              <button class="regions_menu_item w-full text-gray-700 block px-4 py-2 text-lg hover:bg-dirty-white" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
-            </li>
-
-            {% endfor %}
-
-          </ul>
-
-          <button id="regionMenuToggle" type="button" class="text-xl text-charlotte-blue w-full shadow-md bg-dirty-white rounded-full text-center py-4">
-              Close
-          </button>
-
-        </div>
       </div>
     </div>
 
