@@ -66,9 +66,9 @@
                         home
                 </a>
 
-                {% if request.path in nonEstimateLinks %}
+                {% if request.path not in nonEstimateLinks %}
 
-                <a id="summary_btn" href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <a href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-scroll inline-block w-5 mr-2"></i>
                         Summary
 
