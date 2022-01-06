@@ -20,9 +20,18 @@
   <div class="flex justify-center space-x-3">
 
       <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How intense is the activity? </h1>
-      <span class=" flex justify-center items-center">
-          <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
-      </span>
+      <div class="dropdown dropdown-end">
+
+      <div tabindex="0" class="btn btn-circle btn-ghost btn-sm text-info">
+        <i class="fas fa-info-circle text-charlotte-blue"></i>
+      </div>
+
+      <div tabindex="0" class="shadow card compact dropdown-content bg-base-100 rounded-box w-52">
+        <div class="card-body">
+          <p>The intensity of the activity refers to the nature of what the people will be doing for the planned activity (e.g. talking, sleeping, walking, & running).</p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -60,7 +69,7 @@
               <h6 class="font-bold text-gray-500"> Advanced Settings </h6>
 
               <div class="btn-group font-normal">
-                <button id="OB{{ forloop.counter }}" class="adv_btn btn btn-sm btn-active" value="Oral_breathing">Oral Breathing</button>
+                <button id="OB{{ forloop.counter }}" class="adv_btn btn btn-sm active bg-charlotte-gold" value="Oral_breathing">Oral Breathing</button>
                 <button id="S{{ forloop.counter }}" class="adv_btn btn btn-sm" value="Speaking">Speaking</button>
                 <button id="LS{{ forloop.counter }}" class="adv_btn btn btn-sm" value="Loudly_speaking">Loudly Speaking</button>
               </div>

@@ -9,7 +9,7 @@ $(document).ready(function() {
     var advBtn = $('.adv_btn')
 
     slideBtn.click(function() {
-      
+
       toggleNextButton($("#submit_btn"))
 
       var selectedId = $(this).attr('id')
@@ -35,8 +35,10 @@ $(document).ready(function() {
 
     advBtn.click(function() {
 
-      $(this).addClass("btn-active");
-      $(this).siblings().removeClass("btn-active")
+      $(this).addClass("active");
+      $(this).addClass("bg-charlotte-gold");
+      $(this).siblings().removeClass("active");
+      $(this).siblings().removeClass("bg-charlotte-gold");
 
       $('#id_activity_sub_level').val($(this).val())
 

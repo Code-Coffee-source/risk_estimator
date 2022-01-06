@@ -18,7 +18,7 @@ class ActivityAdminForm(forms.ModelForm):
         }
 
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Code', )
+    list_display = ('Name', 'Code', 'Activity_Level')
     form = ActivityAdminForm
 
 
@@ -46,7 +46,7 @@ class VentilationAdminForm(forms.ModelForm):
         }
 
 class VentilationAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Code', 'Use_In_Custom')
+    list_display = ('Name', 'People_Outdoor_Air_Rate', 'Area_Outdoor_Air_Rate', 'Occupant_Density','Code', 'Use_In_Custom')
     form = VentilationAdminForm
 
 admin.site.register(models.Ventilation, VentilationAdmin)

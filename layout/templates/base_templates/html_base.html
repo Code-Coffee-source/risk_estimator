@@ -83,7 +83,7 @@
                 </a>
 
                 <a class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
-                  <i  class="fas fa-info-circle inline-block w-5 mr-2"></i>
+                  <i  class="fas fa-info inline-block w-5 mr-2"></i>
                         how it works
 
                 </a>
@@ -119,6 +119,17 @@
                 </li>
 
                 <li>
+                  {% if request.path in nonEstimateLinks %}
+
+                    <a id="summary_btn" href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                      <i  class="fas fa-scroll inline-block w-5 mr-2"></i>
+                            Summary
+
+                    </a>
+                  {% endif %}
+                </li>
+
+                <li>
                   <a href="{% url 'homepage' %}" class="capitalize">
                     <i  class="fas fa-question inline-block w-5 mr-2"></i>
                           how to use
@@ -127,7 +138,7 @@
 
                 <li>
                   <a href="{% url 'homepage' %}" class="capitalize">
-                    <i  class="fas fa-info-circle inline-block w-5 mr-2"></i>
+                    <i  class="fas fa-info inline-block w-5 mr-2"></i>
                           how it works
                   </a>
                 </li>
