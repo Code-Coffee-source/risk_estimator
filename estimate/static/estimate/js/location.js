@@ -14,7 +14,7 @@ $(document).ready(function() {
 
         image.attr("src", "/static/estimate/resources/image/philippines/PH_"+activity_val+".png")
 
-        $('#region_menu_text').text($(this).text())
+        $('#regionBtn').text($(this).text())
 
         $("#id_location").val(activity_val);
 

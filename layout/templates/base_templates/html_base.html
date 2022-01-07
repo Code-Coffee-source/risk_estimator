@@ -44,56 +44,56 @@
 
     <body>
       <!-- site header -->
-      <header class="px-10 sm:px-20 lg:px-32 font-sans text-charlotte-blue">
+      <header class="px-8 sm:px-20 lg:px-72  lg:px-32 font-sans text-charlotte-blue bg-transparent">
       <!-- This example requires Tailwind CSS v2.0+ -->
 
-          <div class="navbar my-2 bg-white px-0">
+          <div class="navbar my-2 space-y-6 px-0">
 
             <div class="flex-1 mx-2">
               <span class="font-bold flex items-center space-x-1">
-                <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
-                <div class="flex items-center">
-                    <a class="tracking-tighter text-3xl font-black text-charlotte-blue"> aspire </a>
-                </div>
+                    <a  href="{% url 'homepage' %}"  class="tracking-tighter text-3xl font-black text-charlotte-blue flex">
+                        <object class="h-8 w-8" data="{% static 'layout/resources/icons/Aspire-Logo (sm-blue).svg' %}" type="image/svg+xml"></object>
+                        aspire
+                      </a>
               </span>
             </div>
 
             <div class="flex-none hidden px-2 mx-2 lg:flex">
-              <div class="flex items-stretch space-x-2 capitalize">
+              <div class="flex items-stretch space-x-2 capitalize ">
 
-                <a href="{% url 'homepage' %}" class="btn btn-ghost btn-sm rounded-btn capitalize">
+                <a href="{% url 'homepage' %}" class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize">
                   <i class="fas fa-home inline-block w-5 mr-2 "></i>
                         home
                 </a>
 
                 {% if request.path not in nonEstimateLinks %}
 
-                <a href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <a href="{% url 'summary' %}" class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-scroll inline-block w-5 mr-2"></i>
                         Summary
 
                 </a>
                 {% endif %}
 
-
-                <a class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                {% if request.path in nonEstimateLinks %}
+                <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-question inline-block w-5 mr-2"></i>
                         how to use
 
                 </a>
 
-                <a class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-info inline-block w-5 mr-2"></i>
                         how it works
 
                 </a>
 
-                <a class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-language inline-block w-5 mr-2"></i>
                         language
 
                 </a>
-
+                {% endif %}
               </div>
             </div>
             <div class="flex-none lg:hidden">
@@ -121,7 +121,7 @@
                 <li>
                   {% if request.path not in nonEstimateLinks %}
 
-                    <a href="{% url 'summary' %}" class="btn btn-ghost btn-sm rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                    <a href="{% url 'summary' %}" class="capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                       <i  class="fas fa-scroll inline-block w-5 mr-2"></i>
                             Summary
 
@@ -129,26 +129,29 @@
                   {% endif %}
                 </li>
 
-                <li>
-                  <a href="{% url 'homepage' %}" class="capitalize">
-                    <i  class="fas fa-question inline-block w-5 mr-2"></i>
-                          how to use
-                  </a>
-                </li>
+                {% if request.path in nonEstimateLinks %}
 
-                <li>
-                  <a href="{% url 'homepage' %}" class="capitalize">
-                    <i  class="fas fa-info inline-block w-5 mr-2"></i>
-                          how it works
-                  </a>
-                </li>
+                  <li>
+                    <a href="{% url 'homepage' %}" class="capitalize">
+                      <i  class="fas fa-question inline-block w-5 mr-2"></i>
+                            how to use
+                    </a>
+                  </li>
 
-                <li>
-                  <a href="{% url 'homepage' %}" class="capitalize">
-                    <i  class="fas fa-language inline-block w-5 mr-2"></i>
-                          language
-                  </a>
-                </li>
+                  <li>
+                    <a href="{% url 'homepage' %}" class="capitalize">
+                      <i  class="fas fa-info inline-block w-5 mr-2"></i>
+                            how it works
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="{% url 'homepage' %}" class="capitalize">
+                      <i  class="fas fa-language inline-block w-5 mr-2"></i>
+                            language
+                    </a>
+                  </li>
+                {% endif %}
 
               </ul>
             </div>

@@ -29,7 +29,7 @@
 
         <span>
           {% if data.value is not None %}
-            {{ data.value }}
+            {{ data.value|titleify }}
           {% else %}
             None Selected
           {% endif %}

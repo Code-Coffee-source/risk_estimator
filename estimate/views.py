@@ -164,8 +164,10 @@ class location_view(FormView):
 
         context['back_link'] = reverse_lazy('homepage')
         context['stage_title'] = "Activity Location"
-        context['stage_desc'] =  "Kindly choose what region the activity will take place."
+        context['stage_desc'] =  "Choose what region the activity will take place."
         context['stage_number'] = 1
+
+        context['nonEstimateLinks'] = [reverse_lazy('homepage'), ]
 
         return context
 
@@ -194,7 +196,7 @@ class activity_presets_view(FormView):
 
         context['back_link'] = reverse_lazy('location')
         context['stage_title'] = "Activity Planned"
-        context['stage_desc'] =  "Kindly choose your preferred plan activity during the pandemic:"
+        context['stage_desc'] =  "Choose your preferred planned activity during the pandemic:"
         context['stage_number'] = 2
 
         context['presets'] = ActivityPreset.objects.all()
@@ -235,7 +237,7 @@ class activity_level_view(FormView):
 
         context['back_link'] = reverse_lazy('activity')
         context['stage_title'] = "Activity Level"
-        context['stage_desc'] =  "Drag the slider to choose the intensity of the activity. Intensity increases from left to right"
+        context['stage_desc'] =  "Click the left or right button (or slide when using mobile) to choose the intensity. The intensity increases from left to right."
         context['stage_number'] = 2.1
 
         return context
