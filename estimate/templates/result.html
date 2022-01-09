@@ -17,19 +17,19 @@
 
 {% block results %}
 
-<section class="{{ result }}_bg h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 text-center flex flex-col space-y-6 py-10">
+<section class="{{ result_name }}_bg h-auto px-8 sm:px-20 lg:px-96 py-3 xl:py-10 text-center flex flex-col space-y-6 py-10">
 
-    <span class="font-bold {{ result }}_txt"> Your activity has a...</span>
+    <span class="font-bold {{ result_name }}_txt"> Your activity has a...</span>
 
     <span class="mx-auto">
 
-        <img class="w-56 h-56" src='{{ result.image.url }}'>
+        <img class="w-56 h-56" src='{{ result_image }}'>
 
     </span>
 
-    <h2 class="font-semibold text-xl md:text-3xl xl:text-4xl tracking-wider text-white"> {{ result.Name|titleify }} </h2>
+    <h2 class="font-semibold text-xl md:text-3xl xl:text-4xl tracking-wider text-white"> {{ result_title }} </h2>
 
-    <span class="text-white"> {{ result.Desc }} </span>
+    <span class="text-white"> {{ result_desc }} </span>
 
 </section>
 

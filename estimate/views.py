@@ -421,7 +421,11 @@ class result_view(TemplateView):
         risk_score = result_formula.get_risk_score(result_formula, data["breathingRate"], data["eventDuration"], data["inhalationMaskEfficiency"], data["peopleWithMasks"], data["roomVolume"], data["quantaExhalationRate"], data["exhalationMaskEfficiency"], data["infectivePeople"], data["decayRate"], data["virusDeposition"], data["controlMeasures"], data["occupantDensity"], data["floorArea"], data["peopleOutdoorRate"], data["areaOutdoorRate"], data["numberOfCases"], data["population"], data["numberOfPeople"], data["fractionImmune"])
 
         risk_obj = result_formula.get_risk_level(result_formula, risk_score)
-        context["result"] = risk_obj
+
+        context["result_name"] = risk_obj.Name
+        context["result_title"] = risk_obj.Name.replace('_', ' ').title()
+        context["result_desc"] = risk_obj.Desc
+        context["result_image"] = risk_obj.image.url
 
         context['nonEstimateLinks'] = utilities.nonEstimateLinks()
 
