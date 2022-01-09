@@ -422,10 +422,10 @@ class result_view(TemplateView):
 
         risk_obj = result_formula.get_risk_level(result_formula, risk_score)
 
-        context["result_name"] = risk_obj.Name
-        context["result_title"] = risk_obj.Name.replace('_', ' ').title()
-        context["result_desc"] = risk_obj.Desc
-        context["result_image"] = risk_obj.image.url
+        context["name"] = risk_obj.Name
+        context["title"] = risk_obj.Name.replace('_', ' ').title()
+        context["desc"] = risk_obj.Desc
+        context["image"] = risk_obj.image.url
 
         context['nonEstimateLinks'] = utilities.nonEstimateLinks()
 
