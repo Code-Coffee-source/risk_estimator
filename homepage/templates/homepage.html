@@ -12,7 +12,9 @@
 {% endblock %}
 
 <!-- head_js -->
-{% block head_js %}{% endblock %}
+{% block head_js %}
+  <script src="{% static 'homepage/js/homepage.js' %}" type="text/javascript"></script>
+{% endblock %}
 
 <!-- main content -->
 {% block main %}
@@ -32,7 +34,7 @@
 
         <div class="flex flex-col text-center text-white text-xs sm:text-s md:text-base lg:text-lg font-black tracking-widest2x mt-5 md:pr-16">
 
-            <a href="{% url 'location' %}" class="bg-charlotte-gold my-2 py-3 md:py-5 rounded-full shadow-lg">
+            <a href="#consent_modal" class="bg-charlotte-gold my-2 py-3 md:py-5 rounded-full shadow-lg">
                 GET STARTED
             </a>
 
@@ -217,6 +219,62 @@
 
         </div>
     </footer>
+
+    <div id="consent_modal" class="modal">
+      <div class="modal-box space-y-5">
+
+        <div class="p-6 card bordered">
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text w-80 ">I understand that the website is not a replacement for any medical advice, device, or help.</span>
+              <input type="checkbox" name="chk[]"  class="checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="p-6 card bordered">
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text w-80 ">I understand that this website’s purpose is for estimating the possible risk of my planned activity, and does not guarantee my safety.</span>
+              <input type="checkbox" name="chk[]"  class="checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="p-6 card bordered">
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text w-80 ">I am 18 years old and older.</span>
+              <input type="checkbox" name="chk[]"  class="checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="p-6 card bordered">
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text w-80 ">My planned activity is located in the Philippines.</span>
+              <input type="checkbox" name="chk[]"  class="checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="p-6 card bordered">
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text w-80 ">I do not exhibit symptoms of COVID-19.</span>
+              <input type="checkbox" name="chk[]"  class="checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-action">
+          <a href="#" class="btn">Close</a>
+          <a href="{% url 'location' %}" id="consent_btn" class="btn bg-charlotte-green outline-0" disabled="disabled"> Accept </a>
+        </div>
+      </div>
+    </div>
+
 {% endblock %}
 
 <!-- body_js -->

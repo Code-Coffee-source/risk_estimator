@@ -11,4 +11,4 @@ def addclass(value):
     try:
         return value.replace("_", " ").title()
     except AttributeError:
-        pass
+        return value

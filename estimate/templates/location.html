@@ -39,12 +39,12 @@
 
           </button>
 
-          <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-full mb-3">
+          <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-full">
 
             {% for region in regions %}
 
             <li>
-              <button class="btn btn-ghost regions_menu_item  px-4 py-2 text-lg hover:bg-dirty-white capitalize" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
+              <button class="btn btn-ghost regions_menu_item px-4 py-2 text-lg hover:bg-dirty-white capitalize" role="regions_menu_item" value={{ region.Code }}> {{ region }} </button>
             </li>
 
             {% endfor %}

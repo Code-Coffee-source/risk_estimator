@@ -1,6 +1,9 @@
 from django.db import models
 import numpy as np
 import json
+
+from django.urls import reverse_lazy, reverse
+
 # Create your models here.
 class LocationInfo(models.Model):
 
@@ -132,49 +135,83 @@ class result_formula(models.Model):
 
     #Formula 1
     def probInfectionFunction(quantaInhaled, diseasePrevalenceFunction, peopleSusceptible):
-        return 1 - (1 - diseasePrevalenceFunction * (1 - np.exp(-quantaInhaled))) ** peopleSusceptible
+
+        probInfection = 1 - (1 - diseasePrevalenceFunction * (1 - np.exp(-quantaInhaled))) ** peopleSusceptible
+
+        return round(probInfection, 4)
 
     #Formula 2
     def quantaInhaledFunction(meanQuantaConcentration, breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks):
-        return float(meanQuantaConcentration) * float(breathingRate) * float(eventDuration) * (1 - float(inhalationMaskEfficiency) * float(peopleWithMasks))
+
+        quantaInhaled = float(meanQuantaConcentration) * float(breathingRate) * float(eventDuration) * (1 - float(inhalationMaskEfficiency) * float(peopleWithMasks))
+
+        return round(quantaInhaled, 4)
 
     #Formula 4
     def emissionRateFunction(quantaExhalationRate, exhalationMaskEfficiency, peopleWithMasks, infectivePeople):
-        return quantaExhalationRate * (1 - exhalationMaskEfficiency * peopleWithMasks) * infectivePeople
+
+        emissionRate = quantaExhalationRate * (1 - exhalationMaskEfficiency * peopleWithMasks) * infectivePeople
+
+        return round(emissionRate, 4)
 
     #Formula 3
     def meanQuantaConcentrationFunction(emissionRate, lossRate, roomVolume, eventDuration):
-        return float(float(emissionRate) / float(lossRate) / float(roomVolume) * (1 - (1 / float(lossRate) / float(eventDuration)) * (1 - np.exp(float(-lossRate) * float(eventDuration)))))
+
+        meanQuantaConcentration = float(float(emissionRate) / float(lossRate) / float(roomVolume) * (1 - (1 / float(lossRate) / float(eventDuration)) * (1 - np.exp(float(-lossRate) * float(eventDuration)))))
+
+        return round(meanQuantaConcentration, 4)
 
     #Formula 5
     def lossRateFunction(outsideVentilation, decayRate, virusDeposition, controlMeasures):
-        return outsideVentilation + decayRate + virusDeposition + controlMeasures
+
+        lossRate = outsideVentilation + decayRate + virusDeposition + controlMeasures
+
+        return round(lossRate, 4)
 
     #Formula 7
     def ventilationRateFunction(occupantDensity, floorArea, peopleOutdoorRate, areaOutdoorRate):
-        return (occupantDensity * (floorArea/100) * peopleOutdoorRate + floorArea * areaOutdoorRate)
+
+        ventilationRate = (occupantDensity * (floorArea/100) * peopleOutdoorRate + floorArea * areaOutdoorRate)
+
+        return round(ventilationRate, 4)
 
     #Formula 6
     def outsideVentilationFunction(ventilationRate, roomVolume):
-        return ventilationRate * 3600 * (0.001 / roomVolume)
+
+        outsideVentilation = ventilationRate * 3600 * (0.001 / roomVolume)
+
+        return round(outsideVentilation, 4)
 
     #Formula 8
     def diseasePrevalenceFunction(numberOfCases, population):
-        return numberOfCases / population
+
+        diseasePrevalence = numberOfCases / population
+
+        return round(diseasePrevalence, 4)
 
     #Formula 9
     def peopleSusceptibleFunction(numberOfPeople, infectivePeople, fractionImmune):
-        return (numberOfPeople - infectivePeople) * (1 - fractionImmune)
+
+        peopleSusceptible = (numberOfPeople - infectivePeople) * (1 - fractionImmune)
+
+        return round(peopleSusceptible, 4)
 
     def get_risk_score(self, breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks, roomVolume, quantaExhalationRate, exhalationMaskEfficiency,
                       infectivePeople, decayRate, virusDeposition, controlMeasures, occupantDensity, floorArea,
                      peopleOutdoorRate, areaOutdoorRate, numberOfCases, population, numberOfPeople, fractionImmune):
 
-        data_dict = {key:val for key, val in locals().items() if key != 'self'}
-
-
         result = self.probInfectionFunction(self.quantaInhaledFunction(self.meanQuantaConcentrationFunction(self.emissionRateFunction(quantaExhalationRate, exhalationMaskEfficiency, peopleWithMasks, infectivePeople), self.lossRateFunction(self.outsideVentilationFunction(self.ventilationRateFunction(occupantDensity, floorArea, peopleOutdoorRate, areaOutdoorRate), roomVolume), decayRate, virusDeposition, controlMeasures), roomVolume, eventDuration), breathingRate, eventDuration, inhalationMaskEfficiency, peopleWithMasks), self.diseasePrevalenceFunction(numberOfCases, population), self.peopleSusceptibleFunction(numberOfPeople, infectivePeople, fractionImmune))
 
-        data_dict["result"] = result
-
         return result
+
+class utilities():
+
+    def update_summary(summary_dict, item, value, edit_link):
+        try:
+            summary_dict[item]["value"] = value
+            summary_dict[item]["edit_link"] = edit_link
+        except KeyError:
+            pass
+
+    def nonEstimateLinks():
+        return [reverse_lazy('homepage'), ]
