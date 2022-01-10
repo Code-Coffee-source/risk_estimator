@@ -23,12 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-if os.getenv('DEBUG').lower() == "true":
-    DEBUG = os.getenv('DEBUG')
-else:
-    DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
+
+ADMINS =[('Maveron Tyriel V. Aguares', 'maveron.tyriel@gmail.com')]
 
 
 # Application definition
@@ -121,10 +120,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-if DEBUG == False:
-    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-    DROPBOX_OAUTH2_TOKEN = os.getenv('DROPBOX_OAUTH2_TOKEN')
-    DROPBOX_ROOT_PATH = '/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = '42qrhWizpe8AAAAAAAAAASQEzusMj84VhC82xtNLGl__VdJg64f2kJMEP8lDSkXR'
+DROPBOX_ROOT_PATH = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
