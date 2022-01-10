@@ -20,10 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "w3)q!vz_60&id-@%8#xx8j#77(0puk6@t6om71jq10730gms3="
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+if os.getenv('DEBUG').lower() == "true":
+    DEBUG = os.getenv('DEBUG')
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -118,6 +121,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+if DEBUG == False:
+    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+    DROPBOX_OAUTH2_TOKEN = os.getenv('DROPBOX_OAUTH2_TOKEN')
+    DROPBOX_ROOT_PATH = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -137,5 +144,6 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 import django_on_heroku
 django_on_heroku.settings(locals())
