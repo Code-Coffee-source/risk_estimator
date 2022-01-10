@@ -110,6 +110,7 @@ class result_formula(models.Model):
     lower_value = models.FloatField(default=0)
     Desc = models.CharField(max_length=300, default="")
     image = models.FileField(blank=True, null=True, upload_to="Results")
+    code = models.CharField(max_length=300, default="")
 
     class Meta:
         verbose_name = "Result Type Settings"
