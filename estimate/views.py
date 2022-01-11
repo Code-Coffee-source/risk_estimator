@@ -294,8 +294,8 @@ class room_size_view(FormView):
 
         size_link = reverse_lazy('room_size')
 
-        utilities.update_summary(summary_data, "Floor Area", f"{float(Length*Width)} meter/s", size_link)
-        utilities.update_summary(summary_data, "Room Height", f"{float(Height)} meter/s", size_link)
+        utilities.update_summary(summary_data, "Floor Area", f"{float(Length*Width)} meter(s)", size_link)
+        utilities.update_summary(summary_data, "Room Height", f"{float(Height)} meter(s)", size_link)
 
         return super().form_valid(form)
 
@@ -388,7 +388,7 @@ class masks_view(FormView):
 
 class summary_view(TemplateView):
     template_name = 'summary.html'
-    
+
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
