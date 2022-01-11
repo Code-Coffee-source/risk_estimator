@@ -83,11 +83,6 @@
 
     </div>
 
-    <div class="hidden absolute lg:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="{% if forloop.counter|add:'1' == 0 %} #slide4 {% else %} #slide{{ forloop.counter|add:'-1' }} {% endif %}"  class="btn btn-circle">❮</a>
-      <a href="{% if forloop.counter|add:'1' == 5 %} #slide1 {% else %} #slide{{ forloop.counter|add:'1' }} {% endif %}" class="btn btn-circle">❯</a>
-    </div>
-
   </div>
   {% endfor %}
 

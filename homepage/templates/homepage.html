@@ -18,9 +18,9 @@
 
 <!-- main content -->
 {% block main %}
-  <div class=" flex justify-center items-center px-0 pt-20 lg:pt-56 pb-20 header-container" >
+  <div class=" flex justify-center items-center px-0 pt-20 lg:pt-56 pb-20" >
 
-    <div class="background-shapes bg-red"> </div>
+    <!-- <div class="background-shapes bg-red"> </div> -->
 
     <div class="flex flex-col lg:flex-row w-5/6">
       <div class="flex flex-col">
@@ -38,7 +38,7 @@
                 GET STARTED
             </a>
 
-            <a class="bg-charlotte-blue my-2 py-3 md:py-5 rounded-full shadow-lg">
+            <a href="{% url 'instructions' %}" class="bg-charlotte-blue my-2 py-3 md:py-5 rounded-full shadow-lg">
                 HOW TO USE
             </a>
 

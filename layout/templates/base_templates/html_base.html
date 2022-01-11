@@ -43,6 +43,7 @@
     </head>
 
     <body>
+
       <!-- site header -->
       <header class="px-8 sm:px-20 lg:px-72  lg:px-32 font-sans text-charlotte-blue bg-transparent">
       <!-- This example requires Tailwind CSS v2.0+ -->
@@ -76,17 +77,17 @@
                 {% endif %}
 
                 {% if request.path in nonEstimateLinks %}
-                <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <a href="{% url 'instructions' %}" class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-question inline-block w-5 mr-2"></i>
                         how to use
 
                 </a>
 
-                <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
+                <!-- <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-info inline-block w-5 mr-2"></i>
                         how it works
 
-                </a>
+                </a> -->
 
                 <a class="btn btn-ghost btn-sm text-base tracking-tight md:text-lg xl:text-xl rounded-btn capitalize" {% if request.path == '/estimate/summary' %} disabled="disabled" {% endif %}>
                   <i  class="fas fa-language inline-block w-5 mr-2"></i>
@@ -138,12 +139,12 @@
                     </a>
                   </li>
 
-                  <li>
+                  <!-- <li>
                     <a href="{% url 'homepage' %}" class="capitalize">
                       <i  class="fas fa-info inline-block w-5 mr-2"></i>
                             how it works
                     </a>
-                  </li>
+                  </li> -->
 
                   <li>
                     <a href="{% url 'homepage' %}" class="capitalize">

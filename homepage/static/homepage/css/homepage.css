@@ -18,7 +18,7 @@
 .info-top-circle {
   height: 10%;
   width: 100%;
-  background-color: #d6e4f5;
+  background-color: white;
   clip-path: ellipse(50% 50% at 50% 0%);
 }
 

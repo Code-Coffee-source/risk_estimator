@@ -423,7 +423,7 @@ class result_view(TemplateView):
         risk_obj = result_formula.get_risk_level(result_formula, risk_score)
 
         context["code"] = risk_obj.code
-        context["title"] = risk_obj.Name.replace('_', ' ').title()
+        context["name"] = risk_obj.Name.replace('_', ' ').title()
         context["desc"] = risk_obj.Desc
         context["image"] = risk_obj.image.url
 
