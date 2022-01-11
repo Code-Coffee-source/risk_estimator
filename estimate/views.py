@@ -73,6 +73,10 @@ data = {
     "fractionImmune" :  0.0,
     "controlMeasures" : 0.0,
 }
+
+risk_values = {
+
+}
 # Create your views here.
 class location_view(FormView):
 
@@ -102,7 +106,7 @@ class location_view(FormView):
 
         location = LocationInfo.objects.get(Code = location_code)
 
-        data.update({
+        risk_values.update({
 
             "numberOfCases": float(location.Cases),
             "population": float(location.Population),
@@ -141,7 +145,7 @@ class activity_presets_view(FormView):
 
         ventilation = Ventilation.objects.get(Activity=activity.id)
 
-        data.update({
+        risk_values.update({
             "roomVolume": float(activity.get_room_volume()),
             "Height": float(activity.Room_Height),
             'floorArea': float(activity.Floor_Area),
@@ -201,12 +205,9 @@ class activity_level_view(FormView):
         else:
             quantaExhalationRate = float(activity_level.Loudly_speaking)
 
-        data.update({
+        risk_values.update({
             'quantaExhalationRate': quantaExhalationRate
         })
-
-
-
 
         utilities.update_summary(summary_data, "Activity", "Custom", reverse_lazy("activity"))
         utilities.update_summary(summary_data, "Intensity", f"{activity_level.Name} ({activity_sub_level})", intensity_link)
@@ -242,7 +243,7 @@ class room_ventilation_view(FormView):
 
         ventilation_link =  reverse_lazy('room_ventilation')
 
-        data.update({
+        risk_values.update({
             "occupantDensity": float(ventilation.Occupant_Density),
             "peopleOutdoorRate": float(ventilation.People_Outdoor_Air_Rate),
             "areaOutdoorRate": float(ventilation.Area_Outdoor_Air_Rate),
@@ -283,7 +284,7 @@ class room_size_view(FormView):
         Width = float(form.cleaned_data.get("width"))
         Height = float(form.cleaned_data.get("height"))
 
-        data.update({
+        risk_values.update({
             "roomVolume": float(ActivityPreset.get_custom_room_volume(Length, Width, Height)),
             "Height": Height,
             'floorArea': float(ActivityPreset.get_custom_floor_area(Length, Width)),
@@ -331,7 +332,7 @@ class timeAndPeople_view(FormView):
         self.request.session['numberOfPeople'] = people
 
 
-        data.update({
+        risk_values.update({
             "eventDuration": t_mins,
             "numberOfPeople": people
         })
@@ -373,14 +374,11 @@ class masks_view(FormView):
         maskCode = form.cleaned_data.get("maskType")
         maskType = MaskType.objects.get(Code = maskCode)
 
-        data.update({
+        risk_values.update({
             'inhalationMaskEfficiency': float(maskType.inhalationMaskEfficiency),
             'exhalationMaskEfficiency': float(maskType.exhalationMaskEfficiency),
             'peopleWithMasks': self.request.session['numberOfPeople'] * float(form.cleaned_data.get("maskPercent"))
         })
-
-
-
 
 
         utilities.update_summary(summary_data, "Mask Percentage", f"{form.cleaned_data.get('maskPercent')}%", reverse_lazy('masks'))
@@ -390,7 +388,7 @@ class masks_view(FormView):
 
 class summary_view(TemplateView):
     template_name = 'summary.html'
-
+    
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
@@ -404,7 +402,10 @@ class summary_view(TemplateView):
 
         context['nonEstimateLinks'] = utilities.nonEstimateLinks()
 
-        return(context)
+        data.update(risk_values)
+        print(data)
+
+        return context
 
 
 class result_view(TemplateView):
@@ -420,6 +421,8 @@ class result_view(TemplateView):
 
         risk_score = result_formula.get_risk_score(result_formula, data["breathingRate"], data["eventDuration"], data["inhalationMaskEfficiency"], data["peopleWithMasks"], data["roomVolume"], data["quantaExhalationRate"], data["exhalationMaskEfficiency"], data["infectivePeople"], data["decayRate"], data["virusDeposition"], data["controlMeasures"], data["occupantDensity"], data["floorArea"], data["peopleOutdoorRate"], data["areaOutdoorRate"], data["numberOfCases"], data["population"], data["numberOfPeople"], data["fractionImmune"])
 
+        print(risk_score)
+
         risk_obj = result_formula.get_risk_level(result_formula, risk_score)
 
         context["code"] = risk_obj.code
@@ -428,5 +431,7 @@ class result_view(TemplateView):
         context["image"] = risk_obj.image.url
 
         context['nonEstimateLinks'] = utilities.nonEstimateLinks()
+
+        risk_values.clear()
 
         return context
