@@ -22,16 +22,16 @@
       <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How intense is the activity? </h1>
       <div class="dropdown dropdown-end">
 
-      <div tabindex="0" class="btn btn-circle btn-ghost btn-sm text-info">
-        <i class="fas fa-info-circle text-charlotte-blue"></i>
-      </div>
+        <div tabindex="0" class="btn btn-circle btn-ghost btn-sm text-info">
+          <i class="fas fa-info-circle text-charlotte-blue"></i>
+        </div>
 
-      <div tabindex="0" class="shadow card compact dropdown-content bg-base-100 rounded-box w-52">
-        <div class="card-body">
-          <p>The intensity of the activity refers to the nature of what the people will be doing for the planned activity (e.g. talking, sleeping, walking, & running).</p>
+        <div tabindex="0" class="shadow card compact dropdown-content bg-base-100 rounded-box w-52">
+          <div class="card-body">
+            <p>The intensity of the activity refers to the nature of what the people will be doing for the planned activity (e.g. talking, sleeping, walking, & running).</p>
+          </div>
         </div>
       </div>
-    </div>
 
   </div>
 
@@ -82,18 +82,13 @@
       </div>
 
     </div>
-
+    <div class="hidden absolute lg:flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+       <a href="{% if forloop.counter|add:'1' == 0 %} #slide4 {% else %} #slide{{ forloop.counter|add:'-1' }} {% endif %}"  class="btn btn-circle">❮</a>
+       <a href="{% if forloop.counter|add:'1' == 5 %} #slide1 {% else %} #slide{{ forloop.counter|add:'1' }} {% endif %}" class="btn btn-circle">❯</a>
+     </div>
   </div>
   {% endfor %}
 
-
-
-</div>
-
-<div class="flex justify-center w-full py-4 space-x-2">
-  {% for level in activity_levels %}
-  <div href="/components/carousel#item1" class="btn btn-xs btn-circle bg-charlotte-gold btn-disabled text-white" >{{ forloop.counter }}</div>
-  {% endfor %}
 </div>
 
 <form id="ActivityLevelForm" method="POST" action="">

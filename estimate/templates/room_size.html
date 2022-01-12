@@ -17,9 +17,18 @@
 
       <div class="flex justify-center space-x-3">
           <h1 class="text-charlotte-blue text-lg md:text-xl xl:text-2xl font-black tracking-normal"> How large is the room? </h1>
-          <span class=" flex justify-center items-center">
-              <object class="h-5 w-5" data="{% static 'estimate/resources/icons/base/Tooltip.svg' %}" type="image/svg+xml"></object>
-          </span>
+          <div class="dropdown dropdown-end">
+
+            <div tabindex="0" class="btn btn-circle btn-ghost btn-sm text-info">
+              <i class="fas fa-info-circle text-charlotte-blue"></i>
+            </div>
+
+            <div tabindex="0" class="shadow card compact dropdown-content bg-base-100 rounded-box w-52">
+              <div class="card-body">
+                <p> This part of the estimator requires the user to estimate or to input the following: room height, length and width. </p>
+              </div>
+            </div>
+          </div>
       </div>
 
       <div class="grid grid-cols-3 gap-4 md:px-28">
